@@ -12,7 +12,7 @@ export default function Header() {
         <NavLink className="header__navigation-link" to="/">
           Фильмы
         </NavLink>
-        <NavLink className="header__navigation-link" to="/">
+        <NavLink className="header__navigation-link" activeClassName="header__navigation-link-active" to="/">
           Сохранённые фильмы
         </NavLink>
       </nav>
