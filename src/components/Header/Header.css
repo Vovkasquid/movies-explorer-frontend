@@ -51,3 +51,32 @@
   line-height: 16px;
   color:hsla(0, 0%, 100%, 1);
 }
+
+.header__link-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.header__auth-link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header__auth-link_type_register {
+  color: hsla(0, 0%, 100%, 1);
+  text-align: right;
+}
+
+.header__auth-link_type_login {
+  color: hsla(0, 0%, 0%, 1);
+  width: 76px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  background-color: hsla(147, 69%, 55%, 1);
+  padding: 8px 20px;
+  text-align: center;
+}
