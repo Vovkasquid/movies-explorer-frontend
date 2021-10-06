@@ -15,22 +15,3 @@
   text-align: center;
   letter-spacing: -0.04em;
 }
-
-.promo__navtab-container {
-  margin-bottom: 30px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.promo__navtab-link {
-  text-decoration: none;
-  padding: 10px 17px;
-  background: hsla(0, 0%, 19%, 1);
-  border-radius: 10px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  align-items: center;
-  color: #FFFFFF;
-}
