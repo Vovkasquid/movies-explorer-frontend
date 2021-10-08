@@ -21,11 +21,11 @@ export default function AboutProject() {
       </div>
       <div className="about-project__timeline-container">
         <div className="about-project__timeline-part">
-          <p className="about-project__timeline-time">1 неделя</p>
+          <p className="about-project__timeline-time about-project__timeline-time_type_backend">1 неделя</p>
           <p className="about-project__timeline-description">Back-end</p>
         </div>
         <div className="about-project__timeline-part">
-          <p className="about-project__timeline-time">4 неделя</p>
+          <p className="about-project__timeline-time about-project__timeline-time_type_frontend">4 неделя</p>
           <p className="about-project__timeline-description">Front-end</p>
         </div>
       </div>
