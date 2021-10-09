@@ -70,6 +70,7 @@
   font-size: 14px;
   line-height: 17px;
   color: hsla(0, 0%, 100%, 1);
+  text-decoration: none;
 }
 
 .about-me__info-description {
