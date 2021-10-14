@@ -14,9 +14,9 @@ export default function Portfolio() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Статичный сайт
+            <h3 className="portfolio__link-title">Статичный сайт</h3>
+            <img src={arrowImage} alt="изображение стрелочки" className="portfolio__link-arrow" />
           </a>
-          <img src={arrowImage} alt="изображение стрелочки" className="portfolio__link-arrow" />
         </li>
         <li className="portfolio__item">
           <a
@@ -25,9 +25,9 @@ export default function Portfolio() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Адаптивный сайт
+            <h3 className="portfolio__link-title">Адаптивный сайт</h3>
+            <img src={arrowImage} alt="изображение стрелочки" className="portfolio__link-arrow" />
           </a>
-          <img src={arrowImage} alt="изображение стрелочки" className="portfolio__link-arrow" />
         </li>
         <li className="portfolio__item">
           <a
@@ -36,9 +36,9 @@ export default function Portfolio() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Одностраничное приложение
+            <h3 className="portfolio__link-title">Одностраничное приложение</h3>
+            <img src={arrowImage} alt="изображение стрелочки" className="portfolio__link-arrow" />
           </a>
-          <img src={arrowImage} alt="изображение стрелочки" className="portfolio__link-arrow" />
         </li>
       </ul>
     </section>
