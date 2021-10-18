@@ -1,6 +1,6 @@
 .header {
   width: 100%;
-  padding: 28px 70px;
+  padding: 18px 70px 38px 70px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -79,4 +79,10 @@
   background-color: hsla(147, 69%, 55%, 1);
   padding: 8px 20px;
   text-align: center;
+}
+
+@media (max-width:768px) {
+  .header {
+    padding: 18px 30px 38px 30px;
+  }
 }
