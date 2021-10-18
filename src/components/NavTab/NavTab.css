@@ -7,12 +7,14 @@
 
 .navtab__link {
   text-decoration: none;
-  padding: 10px 17px;
+  padding: 10px 0;
   background: hsla(0, 0%, 19%, 1);
   border-radius: 10px;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  align-items: center;
+  text-align: center;
   color: #FFFFFF;
+  width: 96px;
+  box-sizing: border-box;
 }
