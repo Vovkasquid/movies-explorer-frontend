@@ -86,3 +86,18 @@
   text-align: center;
   color: hsla(0, 0%, 55%, 1);
 }
+
+@media (max-width: 768px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+  .about-project__stage-container {
+    margin: 70px 0 93px 0;
+  }
+  .about-project__timeline-time_type_backend {
+    width: 140px;
+  }
+  .about-project__timeline-time_type_frontend {
+    width: 528px;
+  }
+}
