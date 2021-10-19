@@ -80,6 +80,7 @@
   color: #FFFFFF;
   mix-blend-mode: normal;
   margin: 0 0 99px 0;
+  max-width: 46.88vw;
 }
 
 .about-me__photo {
@@ -88,7 +89,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .about-me {
     padding: 90px 50px 91px 50px;
   }

@@ -68,13 +68,13 @@
 .about-project__timeline-time_type_backend {
   color: hsla(0, 0%, 0%, 1);
   background: hsla(147, 69%, 55%, 1);
-  width: 228px;
+  width: 17.81vw;
 }
 
 .about-project__timeline-time_type_frontend {
   color: hsla(0, 0%, 100%, 1);
   background: hsla(0, 0%, 19%, 1);
-  width: 912px;
+  width: 71.25vw;
 }
 
 .about-project__timeline-description {
@@ -87,7 +87,7 @@
   color: hsla(0, 0%, 55%, 1);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .about-project {
     padding: 90px 50px;
   }
