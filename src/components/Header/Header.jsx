@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom'
 import './Header.css'
 import headerLogo from '../../images/logo.svg'
 import profileIcon from '../../images/profile_icon.svg'
+import menuButton from '../../images/burger-button.svg'
 
 export default function Header({ isLogin }) {
   return (
@@ -33,6 +34,7 @@ export default function Header({ isLogin }) {
           </Link>
         </div>
       )}
+      <img className="header__menu-button" src={menuButton} alt="кнопка меню-бургера" />
     </header>
   )
 }
