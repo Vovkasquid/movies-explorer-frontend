@@ -101,3 +101,44 @@
     width: 68.75vw;
   }
 }
+
+@media (max-width: 320px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+  .about-project__header {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 0 0 28px 0;
+  }
+  .about-project__stage-container {
+    margin: 60px 0 60px 0;
+    flex-direction: column;
+    gap: 56px;
+  }
+  .about-project__stage-title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+  .about-project__stage-subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .about-project__timeline-time {
+    font-size: 11px;
+    line-height: 13px;
+    padding: 11px 10px;
+  }
+  .about-project__timeline-description {
+    margin-bottom: 10px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .about-project__timeline-time_type_backend {
+    width: 31.25vw;
+  }
+  .about-project__timeline-time_type_frontend {
+    width: 57.50vw;
+  }
+}
