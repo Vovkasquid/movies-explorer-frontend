@@ -110,12 +110,15 @@
     margin: 0 0 87px 0;
   }
   .about-me__photo {
-    width: 255px;
-    height: 307px;
+    width: 33.2vw;
+    height: 39.97vw;
+  }
+  .about-me__info-container {
+    margin-right: 20px;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 500px) {
   .about-me {
     padding: 70px 14px 69px 14px;
   }

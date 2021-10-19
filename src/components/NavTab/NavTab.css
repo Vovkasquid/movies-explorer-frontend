@@ -19,7 +19,7 @@
   box-sizing: border-box;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 500px) {
   .navtab {
     gap: 6px;
     margin-bottom: 17px;
