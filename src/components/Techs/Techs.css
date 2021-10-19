@@ -98,6 +98,7 @@
 @media (max-width: 320px) {
   .techs {
     padding: 60px 14px 70px 14px;
+    background: hsla(0, 0%, 13%, 1);
   }
   .techs__header {
     padding-bottom: 28px;
