@@ -20,10 +20,13 @@ export default function Header({ isLogin }) {
         </nav>
       )}
       {isLogin ? (
-        <Link className="header__profile-link" to="/">
-          <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
-          <p className="header__profile-link-title">Аккаунт</p>
-        </Link>
+        <>
+          <img className="header__menu-button" src={menuButton} alt="кнопка меню-бургера" />
+          <Link className="header__profile-link" to="/">
+            <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
+            <p className="header__profile-link-title">Аккаунт</p>
+          </Link>
+        </>
       ) : (
         <div className="header__link-container">
           <Link className="header__auth-link header__auth-link_type_register" to="/">
@@ -34,7 +37,6 @@ export default function Header({ isLogin }) {
           </Link>
         </div>
       )}
-      <img className="header__menu-button" src={menuButton} alt="кнопка меню-бургера" />
     </header>
   )
 }

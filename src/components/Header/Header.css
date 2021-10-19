@@ -81,6 +81,10 @@
   text-align: center;
 }
 
+.header__menu-button {
+  display: none;
+}
+
 @media (max-width: 800px) {
   .header {
     padding: 18px 30px 38px 30px;
@@ -89,9 +93,23 @@
 
 @media (max-width: 320px) {
   .header {
-    padding: 18px 14px;
+    padding: 18px 14px 32px 14px;
+  }
+  .header__profile-link {
+    display: none;
+  }
+  .header__menu-button {
+    display: block;
   }
   .header__link-container {
-    display: none;
+    gap: 14px;
+  }
+  .header__auth-link {
+    font-size: 10px;
+    line-height: 16px
+  }
+  .header__auth-link_type_login {
+    padding: 5px 12px;
+    width: 54px;
   }
 }

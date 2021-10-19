@@ -18,3 +18,16 @@
   width: 96px;
   box-sizing: border-box;
 }
+
+@media (max-width: 320px) {
+  .navtab {
+    gap: 6px;
+    margin-bottom: 17px;
+  }
+  .navtab__link {
+    width: 82px;
+    font-size: 10px;
+    padding: 5px 0;
+    border-radius: 6px;
+  }
+}
