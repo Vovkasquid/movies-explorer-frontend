@@ -43,6 +43,7 @@
   align-items: center;
   justify-content: center;
   margin: 0;
+  padding: 0;
 }
 
 .footer__link {
@@ -52,10 +53,42 @@
   font-size: 13px;
   line-height: 16px;
   text-align: right;
+  padding: 0;
+  margin: 0;
 }
 
 @media (max-width: 800px) {
   .footer {
     padding: 79px 30px 20px 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .footer {
+    padding: 79px 10px 10px 10px;
+  }
+  .footer__title {
+    font-size: 12px;
+    line-height: 15px;
+    padding-bottom: 21px;
+    margin-bottom: 30px;
+  }
+  .footer__about-praktikum-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 0;
+  }
+  .footer__links {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .footer__link {
+    text-align: center;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .footer__copyright {
+    color: hsla(0, 0%, 55%, 1);
   }
 }
