@@ -11,10 +11,14 @@ export default function Header({ isLogin }) {
       <img src={headerLogo} alt="Логотип проекта" className="header__logo" />
       {isLogin && (
         <nav className="header__navigation">
-          <NavLink className="header__navigation-link" to="/">
+          <NavLink className="header__navigation-link" activeClassName="header__navigation-link-active" to="/movies">
             Фильмы
           </NavLink>
-          <NavLink className="header__navigation-link" activeClassName="header__navigation-link-active" to="/">
+          <NavLink
+            className="header__navigation-link"
+            activeClassName="header__navigation-link-active"
+            to="/saved-movies"
+          >
             Сохранённые фильмы
           </NavLink>
         </nav>

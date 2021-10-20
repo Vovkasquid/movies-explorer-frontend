@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import Main from '../Main/Main'
+import Movies from '../Movies/Movies'
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <div className="page">
         <Switch>
           <Route path="/movies">
-            <p>Movies</p>
+            <Movies />
           </Route>
           <Route path="/">
             <Main />
