@@ -50,6 +50,11 @@
   height: 34px;
   background-color: transparent;
   border: none;
+  transition: opacity .3s ease
+}
+
+.search-form__form-submit:hover {
+  opacity: .8;
 }
 
 .search-form__checkbox-button-label {
