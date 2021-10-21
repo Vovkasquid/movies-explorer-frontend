@@ -5,13 +5,19 @@ export default function SearchForm() {
   return (
     <section className="search-form">
       <form className="search-form__form" name="search">
-        <div className="search-form__input-field">
-          <input placeholder="Фильм" type="search" required />
+        <div className="search-form__input-fields">
+          <input placeholder="Фильм" type="search" required className="search-form__input-field" />
           <button aria-label="найти фильмы" type="submit" className="search-form__form-submit" />
         </div>
-        <label htmlFor="short-films">
-          <input id="short-films" type="radio" className="search-form__input-radio-button" name="short-films" />
-          Короткометражки
+        <label htmlFor="short-films" className="search-form__checkbox-button-label">
+          <input
+            id="short-films"
+            type="checkbox"
+            className="search-form__input-checkbox-button-invisible"
+            name="short-films"
+          />
+          <span className="search-form__input-checkbox-button-visible" />
+          <span className="search-form__checkbox-title">Короткометражки</span>
         </label>
       </form>
     </section>
