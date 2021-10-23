@@ -25,6 +25,11 @@
   font-size: 13px;
   line-height: 18px;
   text-align: right;
+  transition: opacity .3 ease;
+}
+
+.header__navigation-link:hover {
+  opacity: .8;
 }
 
 .header__navigation-link-active {
@@ -43,6 +48,11 @@
   font-weight: 500;
   padding: 8px 12px;
   box-sizing: border-box;
+  transition: opacity .3 ease;
+}
+
+.header__profile-link:hover {
+  opacity: .8;
 }
 
 .header__profile-link-title {
@@ -64,6 +74,11 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+  transition: opacity .3 ease;
+}
+
+.header__auth-link:hover {
+  opacity: .8;
 }
 
 .header__auth-link_type_register {
@@ -83,23 +98,31 @@
 
 .header__menu-button {
   display: none;
+  transition: opacity .3 ease;
+}
+
+.header__menu-button:hover {
+  opacity: .8;
 }
 
 @media (max-width: 800px) {
   .header {
     padding: 18px 30px 38px 30px;
   }
-}
-
-@media (max-width: 500px) {
-  .header {
-    padding: 18px 14px 32px 14px;
-  }
   .header__profile-link {
     display: none;
   }
   .header__menu-button {
     display: block;
+  }
+  .header__navigation {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    padding: 18px 14px 32px 14px;
   }
   .header__link-container {
     gap: 14px;
