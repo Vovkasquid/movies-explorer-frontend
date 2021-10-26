@@ -69,12 +69,14 @@
   color: hsla(0, 0%, 0%, 1);
   background: hsla(147, 69%, 55%, 1);
   width: 17.81vw;
+  max-width: 228px;
 }
 
 .about-project__timeline-time_type_frontend {
   color: hsla(0, 0%, 100%, 1);
   background: hsla(0, 0%, 19%, 1);
   width: 71.25vw;
+  max-width: 912px;
 }
 
 .about-project__timeline-description {
