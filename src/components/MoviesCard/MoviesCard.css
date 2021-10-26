@@ -1,6 +1,6 @@
 .movies-card {
   width: 100%;
-  height: 9.53vw;
+  height: 134px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,7 +11,7 @@
 }
 
 .movies-card__info-container {
-  width: 31.25vw;
+  width: 400px;
   margin: 16px 16px;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@
 }
 
 .movies-card__film-picture {
-  width: 17.19vw;
-  height: 8.75vw;
+  width: 220px;
+  height: 122px;
   object-fit: cover;
 }
