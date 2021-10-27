@@ -55,6 +55,11 @@
   text-align: right;
   padding: 0;
   margin: 0;
+  transition: opacity .3 ease-in-out;
+}
+
+.footer__link:hover {
+  opacity: .7;
 }
 
 @media (max-width: 800px) {
