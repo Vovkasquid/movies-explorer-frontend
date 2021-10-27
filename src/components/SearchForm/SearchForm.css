@@ -120,3 +120,29 @@
     margin: 0 16px 0 0;
   }
 }
+
+@media (max-width: 500px) {
+  .search-form {
+    padding: 90px 14px 50px 14px;
+  }
+  .search-form__input-fields {
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+  }
+  .search-form__input-field {
+    width: 66.25vw;
+  }
+  .search-form__checkbox-button-label {
+    align-self: center;
+  }
+  .search-form__checkbox-title {
+    order: -1;
+    margin-right: 15px;
+  }
+  .search-form__input-checkbox-button-invisible + .search-form__input-checkbox-button-visible {
+    margin: 0;
+  }
+  .search-form__input-checkbox-button-invisible:checked + .search-form__input-checkbox-button-visible {
+    margin: 0;
+  }
+}
