@@ -131,6 +131,8 @@
   }
   .search-form__input-field {
     width: 66.25vw;
+    font-size: 18px;
+    line-height: 22px;
   }
   .search-form__checkbox-button-label {
     align-self: center;

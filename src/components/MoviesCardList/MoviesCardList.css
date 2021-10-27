@@ -5,6 +5,7 @@
   justify-content: center;
   padding: 70px 70px 80px 70px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .movies-card-list__list {
@@ -47,5 +48,20 @@
   }
   .movies-card-list__list {
     padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .movies-card-list {
+    padding: 40px 10px 80px 10px;
+  }
+  .movies-card-list__list {
+    gap: 20px;
+  }
+  .movies-card-list__list {
+    padding-bottom: 20px;
+  }
+  .movies-card-list__next-films-button {
+    width: 240px;
   }
 }
