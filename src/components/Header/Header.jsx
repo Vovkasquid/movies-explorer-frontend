@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import './Header.css'
@@ -32,15 +33,49 @@ export default function Header({ isLogin }) {
           </Link>
         </>
       ) : (
-        <div className="header__link-container">
-          <Link className="header__auth-link header__auth-link_type_register" to="/">
-            Регистрация
-          </Link>
-          <Link className="header__auth-link header__auth-link_type_login" to="/">
-            Войти
-          </Link>
-        </div>
+        <ul className="header__link-container">
+          <li>
+            <Link className="header__auth-link header__auth-link_type_register" to="/">
+              Регистрация
+            </Link>
+          </li>
+          <li>
+            <Link className="header__auth-link header__auth-link_type_login" to="/">
+              Войти
+            </Link>
+          </li>
+        </ul>
       )}
+      <nav className="header__navigation header__navigation_active">
+        <button type="button" className="header__navigation-close-btn" />
+        <ul className="header__navigation-container">
+          <li className="header__navigation-container-item">
+            <Link className="header__navigation-link header__navigation-link_type_sidebar" to="/">
+              Главная
+            </Link>
+            <NavLink
+              className="header__navigation-link header__navigation-link_type_sidebar"
+              activeClassName="header__navigation-link-active"
+              to="/movies"
+            >
+              Фильмы
+            </NavLink>
+            <NavLink
+              className="header__navigation-link header__navigation-link_type_sidebar"
+              activeClassName="header__navigation-link-active"
+              to="/saved-movies"
+            >
+              Сохранённые фильмы
+            </NavLink>
+          </li>
+          <li className="header__navigation-container-item">
+            <Link className="header__profile-link header__profile-link_type_sidebar" to="/">
+              <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
+              <p className="header__profile-link-title">Аккаунт</p>
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   )
 }
