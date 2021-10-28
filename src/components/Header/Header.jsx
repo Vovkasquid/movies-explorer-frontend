@@ -4,9 +4,15 @@ import { NavLink, Link } from 'react-router-dom'
 import './Header.css'
 import headerLogo from '../../images/logo.svg'
 import profileIcon from '../../images/profile_icon.svg'
-import menuButton from '../../images/burger-button.svg'
 
 export default function Header({ isLogin }) {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
+  const handleOpenSidebar = () => {
+    setIsSidebarOpen(true)
+  }
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false)
+  }
   return (
     <header className="header">
       <img src={headerLogo} alt="Логотип проекта" className="header__logo" />
@@ -30,7 +36,7 @@ export default function Header({ isLogin }) {
       )}
       {isLogin ? (
         <>
-          <img className="header__menu-button" src={menuButton} alt="кнопка меню-бургера" />
+          <button type="button" className="header__menu-button" onClick={handleOpenSidebar} />
           <Link className="header__profile-link" to="/">
             <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
             <p className="header__profile-link-title">Аккаунт</p>
@@ -50,10 +56,14 @@ export default function Header({ isLogin }) {
           </li>
         </ul>
       )}
-      <nav className="header__navigation">
-        <button type="button" className="header__navigation-close-btn" />
-        <ul className="header__navigation-container">
-          <li className="header__navigation-container-item">
+      <nav
+        className={
+          isSidebarOpen ? 'header__navigation-sidebar header__navigation-sidebar_active' : 'header__navigation-sidebar'
+        }
+      >
+        <button type="button" className="header__navigation-sidebar-close-btn" onClick={handleCloseSidebar} />
+        <ul className="header__navigation-sidebar-container">
+          <li className="header__navigation-sidebar-container-item">
             <Link className="header__navigation-link header__navigation-link_type_sidebar" to="/">
               Главная
             </Link>
@@ -72,7 +82,7 @@ export default function Header({ isLogin }) {
               Сохранённые фильмы
             </NavLink>
           </li>
-          <li className="header__navigation-container-item">
+          <li className="header__navigation-sidebar-container-item">
             <Link className="header__profile-link header__profile-link_type_sidebar" to="/">
               <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
               <p className="header__profile-link-title">Аккаунт</p>
