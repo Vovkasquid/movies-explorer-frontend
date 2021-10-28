@@ -12,12 +12,16 @@ export default function Header({ isLogin }) {
       <img src={headerLogo} alt="Логотип проекта" className="header__logo" />
       {isLogin && (
         <nav className="header__navigation">
-          <NavLink className="header__navigation-link" activeClassName="header__navigation-link-active" to="/movies">
+          <NavLink
+            className="header__navigation-link"
+            activeClassName="header__navigation-link_type_active-header"
+            to="/movies"
+          >
             Фильмы
           </NavLink>
           <NavLink
             className="header__navigation-link"
-            activeClassName="header__navigation-link-active"
+            activeClassName="header__navigation-link_type_active-header"
             to="/saved-movies"
           >
             Сохранённые фильмы
@@ -55,14 +59,14 @@ export default function Header({ isLogin }) {
             </Link>
             <NavLink
               className="header__navigation-link header__navigation-link_type_sidebar"
-              activeClassName="header__navigation-link-active"
+              activeClassName="header__navigation-link_type_active-sidebar"
               to="/movies"
             >
               Фильмы
             </NavLink>
             <NavLink
               className="header__navigation-link header__navigation-link_type_sidebar"
-              activeClassName="header__navigation-link-active"
+              activeClassName="header__navigation-link_type_active-sidebar"
               to="/saved-movies"
             >
               Сохранённые фильмы

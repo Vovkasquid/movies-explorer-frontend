@@ -40,6 +40,7 @@
   border: none;
   z-index: 2;
   transition: opacity .3 ease;
+  padding: 0;
 }
 
 .header__navigation-close-btn:hover {
@@ -72,6 +73,7 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  align-items: center;
 }
 
 .header__navigation-container-item:last-child {
@@ -94,8 +96,15 @@
   opacity: .8;
 }
 
-.header__navigation-link-active {
+.header__navigation-link_type_active-header {
   font-weight: 500;
+}
+
+.header__navigation-link_type_active-sidebar {
+  font-weight: 500;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+  border-bottom: 2px solid hsla(0, 0%, 100%, 1);
 }
 
 .header__profile-link {
