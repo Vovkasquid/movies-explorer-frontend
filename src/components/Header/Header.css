@@ -21,6 +21,7 @@
 .header__navigation_active {
   display: flex;
   position: fixed;
+  z-index: 1;
   left: 0;
   right: 0;
   top: 0;
@@ -218,5 +219,29 @@
   .header__auth-link_type_login {
     padding: 5px 12px;
     width: 54px;
+  }
+  .header__navigation-container {
+    width: 100%;
+  }
+  .header__navigation-close-btn {
+    top: 13.44px;
+    right: 13.44px;
+  }
+  .header__navigation-container-item:first-child {
+    margin-top: 144px;
+    gap: 24px;
+  }
+  .header__profile-link_type_sidebar {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  .header__profile-link_type_sidebar {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  .header__navigation-container-item:last-child {
+    margin-bottom: 46px;
   }
 }

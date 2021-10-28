@@ -50,7 +50,7 @@ export default function Header({ isLogin }) {
           </li>
         </ul>
       )}
-      <nav className="header__navigation header__navigation_active">
+      <nav className="header__navigation">
         <button type="button" className="header__navigation-close-btn" />
         <ul className="header__navigation-container">
           <li className="header__navigation-container-item">
