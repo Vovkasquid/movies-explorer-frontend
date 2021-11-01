@@ -40,7 +40,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -169,4 +168,13 @@
 
 .register__form-link:hover {
   opacity: .7;
+}
+
+@media (max-width: 800px) {
+  .register {
+    padding: 232px 0;
+  }
+  .register__form-input-list {
+    margin-bottom: 82px;
+  }
 }
