@@ -63,8 +63,7 @@
 }
 
 .profile__form-input {
-  max-width: 122px;
-  width: 9.53vw;
+  width: 122px;
   text-align: right;
   padding: 0;
   margin: 0;
@@ -126,7 +125,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 500px) {
   .profile {
     padding: 70px 0 40px 0;
   }
