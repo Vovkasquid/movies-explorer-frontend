@@ -14,7 +14,7 @@ export default function Movies() {
       <Header isLogin />
       <SearchForm />
       {isFinding && <Preloader />}
-      {!isFinding && <MoviesCardList />}
+      {!isFinding && <MoviesCardList isSaved={false} />}
       <Footer />
     </>
   )
