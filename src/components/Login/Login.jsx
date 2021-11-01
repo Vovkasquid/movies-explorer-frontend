@@ -23,7 +23,7 @@ export default function login() {
           </ul>
           <div className="login__form-button-container">
             <button type="submit" className="login__form-submit">
-              Зарегистрироваться
+              Войти
             </button>
             <p className="login__form-helper-text">
               Ещё не зарегистрированы?{' '}
