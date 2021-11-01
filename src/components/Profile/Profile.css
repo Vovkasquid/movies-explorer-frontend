@@ -125,3 +125,27 @@
     margin-top: 210px;
   }
 }
+
+@media (max-width: 320px) {
+  .profile {
+    padding: 70px 0 40px 0;
+  }
+
+  .profile__form {
+    width: 260px;
+  }
+
+  .profile__form-title {
+    margin-bottom: 80px;
+  }
+  .profile__form-input {
+    width: 120px;
+  }
+  .profile__button-container {
+    margin-top: 379px;
+  }
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
