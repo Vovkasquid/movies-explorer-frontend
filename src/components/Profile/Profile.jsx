@@ -8,15 +8,15 @@ export default function Profile() {
       <Header isLogin />
       <section className="profile">
         <form className="profile__form" name="edit">
-          <h1 className="profile__form-title">Привет, Виталий!</h1>
+          <h1 className="profile__form-title">Привет, Владимир!</h1>
           <ul className="profile__form-input-list">
             <li className="profile__form-input-item">
               <p className="profile__form-input-label">Имя</p>
-              <input type="text" name="profile-name" placeholder="Имя" />
+              <input type="text" name="profile-name" className="profile__form-input" placeholder="Ваше имя" />
             </li>
             <li className="profile__form-input-item">
               <p className="profile__form-input-label">E-mail</p>
-              <input type="email" name="profile-email" placeholder="pochta@yandex.ru" />
+              <input type="email" name="profile-email" className="profile__form-input" placeholder="Ваш e-mail" />
             </li>
           </ul>
           <div className="profile__button-container">
