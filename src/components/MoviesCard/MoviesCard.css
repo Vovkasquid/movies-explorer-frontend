@@ -8,6 +8,7 @@
   background: hsla(0, 0%, 18%, 1);
   box-sizing: border-box;
   padding: 6px 6px;
+  max-width: 1140px;
 }
 
 .movies-card__info-container {
