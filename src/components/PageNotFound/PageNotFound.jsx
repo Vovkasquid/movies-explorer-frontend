@@ -7,9 +7,9 @@ export default function PageNotFound() {
     <section className="page-not-found">
       <div className="page-not-found__title-container">
         <h1 className="page-not-found__title">404</h1>
-        <p className="page-not-foumd__subtitle">Страница не найдена</p>
+        <p className="page-not-found__subtitle">Страница не найдена</p>
       </div>
-      <Link className="page-not-found__link" to="/profile">
+      <Link className="page-not-found__link" to="/movies">
         Назад
       </Link>
     </section>
