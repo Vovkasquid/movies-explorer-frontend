@@ -37,7 +37,7 @@ export default function Header({ isLogin }) {
       {isLogin ? (
         <>
           <button type="button" className="header__menu-button" onClick={handleOpenSidebar} />
-          <Link className="header__profile-link" to="/">
+          <Link className="header__profile-link" to="/profile">
             <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
             <p className="header__profile-link-title">Аккаунт</p>
           </Link>
@@ -45,12 +45,12 @@ export default function Header({ isLogin }) {
       ) : (
         <ul className="header__link-container">
           <li>
-            <Link className="header__auth-link header__auth-link_type_register" to="/">
+            <Link className="header__auth-link header__auth-link_type_register" to="/signup">
               Регистрация
             </Link>
           </li>
           <li>
-            <Link className="header__auth-link header__auth-link_type_login" to="/">
+            <Link className="header__auth-link header__auth-link_type_login" to="/signin">
               Войти
             </Link>
           </li>
