@@ -1,5 +1,6 @@
 .promo {
   max-width: 1200px;
+  width: 93.75vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,7 +18,7 @@
   letter-spacing: -0.04em;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .promo {
     max-width: 94.79vw;
   }
