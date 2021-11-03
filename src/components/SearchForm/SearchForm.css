@@ -38,11 +38,12 @@
   line-height: 34px;
   color: hsla(0, 0%, 55%, 1);
   border: none;
+  border-radius: 8px;
 }
 
 .search-form__input-field:focus {
   border: none;
-  outline: none;
+  outline: 1px solid hsla(147, 69%, 55%, 1);
 }
 
 .search-form__form-submit {
@@ -51,11 +52,17 @@
   height: 34px;
   background-color: transparent;
   border: none;
-  transition: opacity .3s ease
+  transition: opacity .3s ease;
+  border-radius: 50%;
 }
 
 .search-form__form-submit:hover {
   opacity: .8;
+}
+
+.search-form__form-submit:focus {
+  border: none;
+  outline: 1px solid hsla(147, 69%, 55%, 1);
 }
 
 .search-form__checkbox-button-label {

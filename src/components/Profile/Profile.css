@@ -73,10 +73,12 @@
   background-color: transparent;
   border: none;
   color: hsla(0, 0%, 100%, 1);
+  border-radius: 4px;
 }
 
 .profile__form-input:focus {
-  outline: none;
+  border: none;
+  outline: 1px solid hsla(147, 69%, 55%, 1);
 }
 
 .profile__button-container {
@@ -102,6 +104,11 @@
   border: none;
   color: hsla(0, 0%, 100%, 1);
   transition: opacity .3s ease;
+}
+
+.profile__button:focus {
+  border: none;
+  outline: 1px solid hsla(147, 69%, 55%, 1);
 }
 
 .profile__button:hover {
