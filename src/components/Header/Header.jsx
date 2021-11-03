@@ -83,7 +83,7 @@ export default function Header({ isLogin }) {
             </NavLink>
           </li>
           <li className="header__navigation-sidebar-container-item">
-            <Link className="header__profile-link header__profile-link_type_sidebar" to="/">
+            <Link className="header__profile-link header__profile-link_type_sidebar" to="/profile">
               <img src={profileIcon} alt="иконка профиля" className="header__profile-link-icon" />
               <p className="header__profile-link-title">Аккаунт</p>
             </Link>
