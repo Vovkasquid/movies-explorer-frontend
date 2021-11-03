@@ -61,6 +61,7 @@
 
 .movies-card__button_type_close-btn {
   background-image: url(../../images/movie-delete-button.svg);
+  background-size: contain;
 }
 
 .movies-card__film-picture {
@@ -95,7 +96,7 @@
   .movies-card__duration {
     margin: 0;
   }
-  .movies-card__like-button {
+  .movies-card__button {
     position: absolute;
     top: 16px;
     right: 16px;

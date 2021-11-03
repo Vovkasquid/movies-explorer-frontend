@@ -48,18 +48,18 @@ export default function MoviesCardList({ isSaved }) {
       ) : (
         <ul className="movies-card-list__list">
           <li>
-            <MovieCard filmName="33 слова о дизайне" filmDuration="1ч 42м" filmPicture={filmPicture} isLiked />
+            <MovieCard filmName="33 слова о дизайне" filmDuration="1ч 42м" filmPicture={filmPicture} isSaved />
           </li>
           <li>
             <MovieCard
               filmName="Киноальманах «100 лет дизайна»"
               filmDuration="1ч 42м"
               filmPicture={filmPicture}
-              isLiked
+              isSaved
             />
           </li>
           <li>
-            <MovieCard filmName="В погоне за Бенкси" filmDuration="1ч 42м" filmPicture={filmPicture} isLiked={false} />
+            <MovieCard filmName="В погоне за Бенкси" filmDuration="1ч 42м" filmPicture={filmPicture} isSaved />
           </li>
         </ul>
       )}

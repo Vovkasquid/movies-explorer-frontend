@@ -1,20 +1,20 @@
 import React from 'react'
 import './MoviesCard.css'
 
-export default function MoviesCard({ filmName, filmDuration, filmPicture, isLiked }) {
+export default function MoviesCard({ filmName, filmDuration, filmPicture, isLiked, isSaved }) {
   return (
     <div className="movies-card">
       <div className="movies-card__info-container">
         <h3 className="movies-card__title">{filmName}</h3>
         <p className="movies-card__duration">{filmDuration}</p>
-        {1 && (
+        {isSaved && (
           <button
             aria-label="delete"
             type="button"
             className="movies-card__button movies-card__button_type_close-btn"
           />
         )}
-        {null && (
+        {!isSaved && (
           <button
             aria-label="like"
             type="button"
