@@ -31,6 +31,7 @@
 
 .search-form__input-field {
   width: 85.47vw;
+  max-width: 1060px;
   background: transparent;
   font-weight: 500;
   font-size: 28px;
