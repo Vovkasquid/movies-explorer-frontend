@@ -24,7 +24,7 @@ export default function Register() {
               <input
                 type="password"
                 className="register__form-input register__form-input_type_error"
-                placeholder="Введите Ваш e-mail"
+                placeholder="Введите Ваш пароль"
               />
               <span className="register__form-input-error register__form-input-error_active">
                 Что-то пошло не так...

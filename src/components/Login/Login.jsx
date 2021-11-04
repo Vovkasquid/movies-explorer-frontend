@@ -13,7 +13,7 @@ export default function login() {
           <ul className="login__form-input-list">
             <li className="login__form-input-list-item">
               <p className="login__form-input-label">Имя</p>
-              <input type="email" className="login__form-input" placeholder="Введите Ваш e-mail" />
+              <input type="email" className="login__form-input" placeholder="Введите Ваше имя" />
             </li>
             <li className="login__form-input-list-item">
               <p className="login__form-input-label">Пароль</p>
