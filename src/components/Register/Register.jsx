@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
-import formValidationHook from '../../hooks/formValidationHook'
+import formValidationHook from '../utils/hooks/formValidationHook'
 
 export default function Register() {
   const { values, isValid, handleChange, errors } = formValidationHook({

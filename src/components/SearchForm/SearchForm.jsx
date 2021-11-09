@@ -1,5 +1,5 @@
 import React from 'react'
-import formValidationHook from '../../hooks/formValidationHook'
+import formValidationHook from '../utils/hooks/formValidationHook'
 import './SearchForm.css'
 
 export default function SearchForm() {
