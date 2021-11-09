@@ -31,7 +31,9 @@ export default function Register() {
               <input
                 type="text"
                 name="name"
-                className="register__form-input"
+                className={
+                  errors.name ? 'register__form-input register__form-input_type_error' : 'register__form-input'
+                }
                 placeholder="Введите Ваше имя"
                 minLength="2"
                 maxLength="18"
@@ -41,11 +43,13 @@ export default function Register() {
               />
             </li>
             <li className="register__form-input-list-item">
-              <p className="register__form-input-label">Имя</p>
+              <p className="register__form-input-label">E-mail</p>
               <input
                 type="email"
                 name="email"
-                className="register__form-input"
+                className={
+                  errors.email ? 'register__form-input register__form-input_type_error' : 'register__form-input'
+                }
                 placeholder="Введите Ваш e-mail"
                 required
                 values={values.email}
@@ -56,7 +60,9 @@ export default function Register() {
               <p className="register__form-input-label">Пароль</p>
               <input
                 type="password"
-                className="register__form-input register__form-input_type_error"
+                className={
+                  errors.password ? 'register__form-input register__form-input_type_error' : 'register__form-input'
+                }
                 placeholder="Введите Ваш пароль"
                 name="password"
                 minLength="8"

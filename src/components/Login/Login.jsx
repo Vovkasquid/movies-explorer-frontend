@@ -31,7 +31,7 @@ export default function login() {
               <input
                 name="email"
                 type="email"
-                className="login__form-input"
+                className={errors.email ? 'login__form-input login__form-input_type_error' : 'login__form-input'}
                 placeholder="Введите Ваш email"
                 value={values.email}
                 onChange={handleChange}
@@ -43,7 +43,7 @@ export default function login() {
               <input
                 name="password"
                 type="password"
-                className="login__form-input"
+                className={errors.password ? 'login__form-input login__form-input_type_error' : 'login__form-input'}
                 placeholder="Введите Ваш пароль"
                 value={values.password}
                 onChange={handleChange}
