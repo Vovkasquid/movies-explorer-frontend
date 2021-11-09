@@ -16,7 +16,6 @@ export default function login() {
       console.log('Login SUBMIT')
     } else {
       console.log('Login Error')
-      console.log(errors)
     }
   }
 
