@@ -11,6 +11,7 @@ export default function SearchForm() {
     evt.preventDefault()
     if (isValid) {
       console.log('SUBMIT SEARCH')
+      setIsError(false)
     } else {
       setIsError(true)
     }
@@ -21,6 +22,7 @@ export default function SearchForm() {
       <form className="search-form__form" name="search" noValidate onSubmit={onSubmitForm}>
         <div className="search-form__input-fields">
           <input
+            name="search"
             placeholder="Фильм"
             type="search"
             required
