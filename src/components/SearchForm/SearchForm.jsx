@@ -6,10 +6,19 @@ export default function SearchForm() {
   const { values, isValid, handleChange } = formValidationHook({
     search: '',
   })
+  const [isError, setIsError] = React.useState(false)
+  const onSubmitForm = (evt) => {
+    evt.preventDefault()
+    if (isValid) {
+      console.log('SUBMIT SEARCH')
+    } else {
+      setIsError(true)
+    }
+  }
 
   return (
     <section className="search-form">
-      <form className="search-form__form" name="search" noValidate>
+      <form className="search-form__form" name="search" noValidate onSubmit={onSubmitForm}>
         <div className="search-form__input-fields">
           <input
             placeholder="Фильм"
@@ -23,7 +32,7 @@ export default function SearchForm() {
         </div>
         <span
           className={
-            isValid
+            !isError
               ? 'search-form__input-error-text'
               : 'search-form__input-error-text search-form__input-error-text_active'
           }

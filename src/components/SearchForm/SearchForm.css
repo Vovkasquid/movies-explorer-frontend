@@ -74,7 +74,7 @@
   color: hsla(344, 85%, 57%, 1);
   align-self: center;
   visibility: hidden;
-  transition: visibility .3 ease;
+  transition: visibility .8s ease;
 }
 
 .search-form__input-error-text_active {
