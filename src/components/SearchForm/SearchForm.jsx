@@ -19,6 +19,7 @@ export default function SearchForm({ isSaved }) {
   const [isShort, setIsShort] = React.useState(false)
   const [shortFilmsArray, setShortFilmsArray] = React.useState([])
   const [filterFilmArray, setFilterFilmArray] = React.useState([])
+  const [isNetworkError, setIsNetworkError] = React.useState(false)
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
@@ -27,6 +28,7 @@ export default function SearchForm({ isSaved }) {
     if (isValid) {
       console.log('SUBMIT SEARCH')
       setIsError(false)
+      setIsNetworkError(false)
       // Запускаем прелоадер
       setIsPreloaderVisible(true)
       getMovies()
@@ -55,6 +57,7 @@ export default function SearchForm({ isSaved }) {
         })
         .catch((err) => {
           setIsPreloaderVisible(false)
+          setIsNetworkError(true)
           console.log(err)
         })
     } else {
@@ -125,6 +128,12 @@ export default function SearchForm({ isSaved }) {
       )}
       {isPreloaderVisible && <Preloader />}
       {isNothingFound && <p className="search-form__error-text">Ничего не найдено</p>}
+      {isNetworkError && (
+        <p className="search-form__error-text">
+          Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и
+          попробуйте ещё раз.
+        </p>
+      )}
     </>
   )
 }
