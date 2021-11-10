@@ -1,7 +1,6 @@
 import React from 'react'
 import './MoviesCardList.css'
 import MovieCard from '../MoviesCard/MoviesCard'
-import filmPicture from '../../images/film-example.png'
 
 export default function MoviesCardList({ isSaved, movies, dataLength, renderCounter, setRenderCounter }) {
   const [isBtnVisible, setIsBtnVisible] = React.useState(true)
@@ -31,26 +30,24 @@ export default function MoviesCardList({ isSaved, movies, dataLength, renderCoun
                   filmName={movie.nameRU}
                   filmDuration={filmDuration(movie)}
                   filmPicture={`https://api.nomoreparties.co${movie.image.url}`}
+                  isSaved={isSaved}
                 />
               </li>
             ))}
         </ul>
       ) : (
         <ul className="movies-card-list__list">
-          <li>
-            <MovieCard filmName="33 слова о дизайне" filmDuration="1ч 42м" filmPicture={filmPicture} isSaved />
-          </li>
-          <li>
-            <MovieCard
-              filmName="Киноальманах «100 лет дизайна»"
-              filmDuration="1ч 42м"
-              filmPicture={filmPicture}
-              isSaved
-            />
-          </li>
-          <li>
-            <MovieCard filmName="В погоне за Бенкси" filmDuration="1ч 42м" filmPicture={filmPicture} isSaved />
-          </li>
+          {renderArray &&
+            renderArray.map((movie) => (
+              <li key={movie.id}>
+                <MovieCard
+                  filmName={movie.nameRU}
+                  filmDuration={filmDuration(movie)}
+                  filmPicture={`https://api.nomoreparties.co${movie.image.url}`}
+                  isSaved={isSaved}
+                />
+              </li>
+            ))}
         </ul>
       )}
 
