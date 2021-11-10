@@ -15,9 +15,8 @@ export default function MoviesCardList({ isSaved, movies, dataLength, renderCoun
       {!isSaved ? (
         <ul className="movies-card-list__list">
           {movies.map((movie) => (
-            <li>
+            <li key={movie.id}>
               <MovieCard
-                key={movie.id}
                 filmName={movie.nameRU}
                 filmDuration={filmDuration(movie)}
                 filmPicture={`https://api.nomoreparties.co${movie.image.url}`}

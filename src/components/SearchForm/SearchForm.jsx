@@ -3,7 +3,7 @@ import formValidationHook from '../utils/hooks/formValidationHook'
 import './SearchForm.css'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import getMovies from '../utils/api/MoviesApi'
-// import Preloader from '../Preloader/Preloader'
+import Preloader from '../Preloader/Preloader'
 
 export default function SearchForm({ isSaved }) {
   const { values, isValid, handleChange } = formValidationHook({
@@ -14,21 +14,30 @@ export default function SearchForm({ isSaved }) {
   const [renderCounter, setRenderCounter] = React.useState(0)
   const [dataLength, setDataLenght] = React.useState(0)
   const [moviesStorage, setMoviesStorage] = React.useState([])
+  const [isPreloaderVisible, setIsPreloaderVisible] = React.useState(false)
   const onSubmitForm = (evt) => {
     evt.preventDefault()
     if (isValid) {
       console.log('SUBMIT SEARCH')
-      setIsFinding(true)
       setIsError(false)
+      // Запускаем прелоадер
+      setIsPreloaderVisible(true)
       getMovies()
         .then((movies) => {
           console.log(movies)
+          // Отключаем прелоадер
+          setIsPreloaderVisible(false)
+          // Включаем секцию с фильмами
+          setIsFinding(true)
           // Записываем длину массива с фильмами
           setDataLenght(movies.length)
           // Записываем фильмы в стейт
           setMoviesStorage(movies)
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          setIsPreloaderVisible(false)
+          console.log(err)
+        })
     } else {
       setIsError(true)
     }
@@ -80,6 +89,7 @@ export default function SearchForm({ isSaved }) {
           setRenderCounter={setRenderCounter}
         />
       )}
+      {isPreloaderVisible && <Preloader />}
     </>
   )
 }
