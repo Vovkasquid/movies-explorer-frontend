@@ -3,9 +3,9 @@ import './MoviesCardList.css'
 import MovieCard from '../MoviesCard/MoviesCard'
 
 export default function MoviesCardList({ isSaved, movies, dataLength, renderCounter, setRenderCounter }) {
-  const [isBtnVisible, setIsBtnVisible] = React.useState(true)
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   const renderArray = movies.slice(0, renderCounter)
+  const [isBtnVisible, setIsBtnVisible] = React.useState(!(dataLength - renderCounter < 7))
   const handleAddingBtn = () => {
     // проверяем может ли мы ещё добавить полное количество карточек
     if (dataLength - renderCounter < 7) {
