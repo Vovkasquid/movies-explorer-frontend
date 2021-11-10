@@ -15,6 +15,7 @@ export default function SearchForm({ isSaved }) {
   const [dataLength, setDataLenght] = React.useState(0)
   const [moviesStorage, setMoviesStorage] = React.useState([])
   const [isPreloaderVisible, setIsPreloaderVisible] = React.useState(false)
+  const [isNothingFound, setIsNothingFound] = React.useState(false)
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
@@ -30,14 +31,20 @@ export default function SearchForm({ isSaved }) {
           console.log(movies)
           // Отключаем прелоадер
           setIsPreloaderVisible(false)
-          // Включаем секцию с фильмами
-          setIsFinding(true)
           // Фильтруем фильмы
           const filteredFilms = filterItems(movies, values.search)
           // Записываем длину массива с фильмами
           setDataLenght(filteredFilms.length)
           // Записываем фильмы в стейт
           setMoviesStorage(filteredFilms)
+          if (filteredFilms.length === 0) {
+            setIsNothingFound(true)
+            setIsFinding(false)
+          } else {
+            setIsNothingFound(false)
+            // Включаем секцию с фильмами
+            setIsFinding(true)
+          }
         })
         .catch((err) => {
           setIsPreloaderVisible(false)
@@ -95,6 +102,7 @@ export default function SearchForm({ isSaved }) {
         />
       )}
       {isPreloaderVisible && <Preloader />}
+      {isNothingFound && <p className="search-form__error-text">Ничего не найдено</p>}
     </>
   )
 }
