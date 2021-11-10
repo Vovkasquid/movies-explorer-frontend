@@ -15,6 +15,9 @@ export default function SearchForm({ isSaved }) {
   const [dataLength, setDataLenght] = React.useState(0)
   const [moviesStorage, setMoviesStorage] = React.useState([])
   const [isPreloaderVisible, setIsPreloaderVisible] = React.useState(false)
+  // Функция фильтрации по имени
+  const filterItems = (arr, query) =>
+    arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
   const onSubmitForm = (evt) => {
     evt.preventDefault()
     if (isValid) {
@@ -29,10 +32,12 @@ export default function SearchForm({ isSaved }) {
           setIsPreloaderVisible(false)
           // Включаем секцию с фильмами
           setIsFinding(true)
+          // Фильтруем фильмы
+          const filteredFilms = filterItems(movies, values.search)
           // Записываем длину массива с фильмами
-          setDataLenght(movies.length)
+          setDataLenght(filteredFilms.length)
           // Записываем фильмы в стейт
-          setMoviesStorage(movies)
+          setMoviesStorage(filteredFilms)
         })
         .catch((err) => {
           setIsPreloaderVisible(false)
