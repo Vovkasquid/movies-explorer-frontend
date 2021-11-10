@@ -11,7 +11,7 @@ export default function SearchForm({ isSaved }) {
   })
   const [isError, setIsError] = React.useState(false)
   const [isFinding, setIsFinding] = React.useState(false)
-  const [renderCounter, setRenderCounter] = React.useState(0)
+  const [renderCounter, setRenderCounter] = React.useState(7)
   const [dataLength, setDataLenght] = React.useState(0)
   const [moviesStorage, setMoviesStorage] = React.useState([])
   const [isPreloaderVisible, setIsPreloaderVisible] = React.useState(false)
