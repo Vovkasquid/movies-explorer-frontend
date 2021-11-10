@@ -2,6 +2,7 @@ import React from 'react'
 import formValidationHook from '../utils/hooks/formValidationHook'
 import './SearchForm.css'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
+import getMovies from '../utils/api/MoviesApi'
 // import Preloader from '../Preloader/Preloader'
 
 export default function SearchForm({ isSaved }) {
@@ -10,12 +11,24 @@ export default function SearchForm({ isSaved }) {
   })
   const [isError, setIsError] = React.useState(false)
   const [isFinding, setIsFinding] = React.useState(false)
+  const [renderCounter, setRenderCounter] = React.useState(0)
+  const [dataLength, setDataLenght] = React.useState(0)
+  const [moviesStorage, setMoviesStorage] = React.useState([])
   const onSubmitForm = (evt) => {
     evt.preventDefault()
     if (isValid) {
       console.log('SUBMIT SEARCH')
       setIsFinding(true)
       setIsError(false)
+      getMovies()
+        .then((movies) => {
+          console.log(movies)
+          // Записываем длину массива с фильмами
+          setDataLenght(movies.length)
+          // Записываем фильмы в стейт
+          setMoviesStorage(movies)
+        })
+        .catch((err) => console.log(err))
     } else {
       setIsError(true)
     }
@@ -58,7 +71,15 @@ export default function SearchForm({ isSaved }) {
           </label>
         </form>
       </section>
-      {isFinding && <MoviesCardList isSaved={isSaved} />}
+      {isFinding && (
+        <MoviesCardList
+          isSaved={isSaved}
+          movies={moviesStorage}
+          dataLength={dataLength}
+          renderCounter={renderCounter}
+          setRenderCounter={setRenderCounter}
+        />
+      )}
     </>
   )
 }
