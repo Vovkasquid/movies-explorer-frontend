@@ -5,13 +5,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import getMovies from '../utils/api/MoviesApi'
 import Preloader from '../Preloader/Preloader'
 
-export default function SearchForm({ isSaved }) {
+export default function SearchForm({ isSaved, cardCount }) {
   const { values, isValid, handleChange } = formValidationHook({
     search: '',
   })
   const [isError, setIsError] = React.useState(false)
   const [isFinding, setIsFinding] = React.useState(false)
-  const [renderCounter, setRenderCounter] = React.useState(7)
+  const [renderCounter, setRenderCounter] = React.useState(cardCount)
   const [dataLength, setDataLenght] = React.useState(0)
   const [moviesStorage, setMoviesStorage] = React.useState([])
   const [isPreloaderVisible, setIsPreloaderVisible] = React.useState(false)
@@ -124,6 +124,7 @@ export default function SearchForm({ isSaved }) {
           dataLength={dataLength}
           renderCounter={renderCounter}
           setRenderCounter={setRenderCounter}
+          cardCount={cardCount}
         />
       )}
       {isPreloaderVisible && <Preloader />}
