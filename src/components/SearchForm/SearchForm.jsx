@@ -16,6 +16,9 @@ export default function SearchForm({ isSaved }) {
   const [moviesStorage, setMoviesStorage] = React.useState([])
   const [isPreloaderVisible, setIsPreloaderVisible] = React.useState(false)
   const [isNothingFound, setIsNothingFound] = React.useState(false)
+  const [isShort, setIsShort] = React.useState(false)
+  const [shortFilmsArray, setShortFilmsArray] = React.useState([])
+  const [filterFilmArray, setFilterFilmArray] = React.useState([])
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
@@ -33,6 +36,10 @@ export default function SearchForm({ isSaved }) {
           setIsPreloaderVisible(false)
           // Фильтруем фильмы
           const filteredFilms = filterItems(movies, values.search)
+          // Записываем эти фильтры в стейт отфильтрованного
+          setFilterFilmArray(filteredFilms)
+          // Заранее записываем в стейт короткометражки
+          setShortFilmsArray(filteredFilms.filter((movie) => movie.duration <= 40))
           // Записываем длину массива с фильмами
           setDataLenght(filteredFilms.length)
           // Записываем фильмы в стейт
@@ -54,6 +61,20 @@ export default function SearchForm({ isSaved }) {
       setIsError(true)
     }
   }
+  // Обработчик для чекбокса
+  const onShortFilmsCheckbox = () => {
+    console.log('checkbox click')
+    // Переключаем стейт
+    setIsShort(!isShort)
+  }
+  // При изменении стейта будем менять массив, который идёт на рендер
+  React.useEffect(() => {
+    if (isShort) {
+      setMoviesStorage(shortFilmsArray)
+    } else {
+      setMoviesStorage(filterFilmArray)
+    }
+  }, [isShort])
 
   return (
     <>
@@ -86,6 +107,7 @@ export default function SearchForm({ isSaved }) {
               type="checkbox"
               className="search-form__input-checkbox-button-invisible"
               name="short-films"
+              onChange={onShortFilmsCheckbox}
             />
             <span className="search-form__input-checkbox-button-visible" />
             <span className="search-form__checkbox-title">Короткометражки</span>
