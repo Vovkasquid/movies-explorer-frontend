@@ -80,6 +80,17 @@ export default function SearchForm({ isSaved, cardCount }) {
   }
   // При изменении стейта будем менять массив, который идёт на рендер
   React.useEffect(() => {
+    // Если возвращаемся из короткометражек, то переключить стейты
+    if (!isShort && filterFilmArray.length > 0) {
+      console.log('Включаем секцию')
+      setIsNothingFound(false)
+      setIsFinding(true)
+    }
+    // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
+    if (isShort && shortFilmsArray.length === 0) {
+      setIsNothingFound(true)
+      setIsFinding(false)
+    }
     if (isShort) {
       setMoviesStorage(shortFilmsArray)
     } else {
