@@ -20,6 +20,8 @@ export default function SearchForm({ isSaved, cardCount }) {
   const [shortFilmsArray, setShortFilmsArray] = React.useState([])
   const [filterFilmArray, setFilterFilmArray] = React.useState([])
   const [isNetworkError, setIsNetworkError] = React.useState(false)
+  // стейт для кнопки из MoviesCardList
+  const [isBtnVisible, setIsBtnVisible] = React.useState(false)
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
@@ -46,6 +48,10 @@ export default function SearchForm({ isSaved, cardCount }) {
           setShortFilmsArray(filteredFilms.filter((movie) => movie.duration <= 40))
           // Записываем длину массива с фильмами
           setDataLenght(filteredFilms.length)
+          // Выставляем видимость/невидимость кнопки "ещё"
+          console.log('dataLength ', filteredFilms.length)
+          console.log('cardCount ', cardCount)
+          setIsBtnVisible(filteredFilms.length > cardCount)
           // Записываем фильмы в стейт
           setMoviesStorage(filteredFilms)
           if (filteredFilms.length === 0) {
@@ -127,6 +133,8 @@ export default function SearchForm({ isSaved, cardCount }) {
           renderCounter={renderCounter}
           setRenderCounter={setRenderCounter}
           cardCount={cardCount}
+          isBtnVisible={isBtnVisible}
+          setIsBtnVisible={setIsBtnVisible}
         />
       )}
       {isPreloaderVisible && <Preloader />}
