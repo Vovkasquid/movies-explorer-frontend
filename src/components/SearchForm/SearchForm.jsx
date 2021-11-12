@@ -82,7 +82,6 @@ export default function SearchForm({ isSaved, cardCount }) {
   React.useEffect(() => {
     // Если возвращаемся из короткометражек, то переключить стейты
     if (!isShort && filterFilmArray.length > 0) {
-      console.log('Включаем секцию')
       setIsNothingFound(false)
       setIsFinding(true)
     }
@@ -93,8 +92,17 @@ export default function SearchForm({ isSaved, cardCount }) {
     }
     if (isShort) {
       setMoviesStorage(shortFilmsArray)
+      // Отключаем кнопку "ещё", если она не нужна в короткометражках
+      if (shortFilmsArray.length <= cardCount) {
+        setIsBtnVisible(false)
+      }
     } else {
       setMoviesStorage(filterFilmArray)
+      // Включаем кнопку "ещё", если она необходима
+      console.log('сколько осталось, ', filterFilmArray.length - renderCounter)
+      if (filterFilmArray.length > renderCounter) {
+        setIsBtnVisible(true)
+      }
     }
   }, [isShort])
 
