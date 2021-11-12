@@ -27,7 +27,7 @@ function App() {
   // Дёрнем этот юзЭффект если изменится стейт ширины экрана и выставим актуальное количество карточек
   React.useEffect(() => {
     setCardCount(window.innerWidth > 500 ? 7 : 5)
-  }, screenWidth)
+  }, [screenWidth])
 
   return (
     <div className="App">

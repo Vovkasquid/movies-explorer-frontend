@@ -34,6 +34,8 @@ export default function SearchForm({ isSaved, cardCount }) {
       getMovies()
         .then((movies) => {
           console.log(movies)
+          // Выставляем начальное число рендера карт
+          setRenderCounter(cardCount)
           // Отключаем прелоадер
           setIsPreloaderVisible(false)
           // Фильтруем фильмы
