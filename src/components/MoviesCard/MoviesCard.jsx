@@ -1,7 +1,12 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import './MoviesCard.css'
 
-export default function MoviesCard({ filmName, filmDuration, filmPicture, isLiked, isSaved }) {
+export default function MoviesCard({ filmName, filmDuration, filmPicture, isLiked, isSaved, trailerLink }) {
+  const handleOpenTrailer = () => {
+    window.open(`${trailerLink}`, `Трейлер фильма "${filmName}"`)
+  }
   return (
     <div className="movies-card">
       <div className="movies-card__info-container">
@@ -26,7 +31,7 @@ export default function MoviesCard({ filmName, filmDuration, filmPicture, isLike
           />
         )}
       </div>
-      <img className="movies-card__film-picture" alt="картинка фильма" src={filmPicture} />
+      <img className="movies-card__film-picture" alt="картинка фильма" src={filmPicture} onClick={handleOpenTrailer} />
     </div>
   )
 }
