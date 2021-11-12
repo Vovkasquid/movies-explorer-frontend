@@ -3,9 +3,13 @@
 import React from 'react'
 import './MoviesCard.css'
 
-export default function MoviesCard({ filmName, filmDuration, filmPicture, isLiked, isSaved, trailerLink }) {
+export default function MoviesCard({ filmName, filmDuration, filmPicture, isSaved, trailerLink }) {
+  const [isLiked, setIsLikied] = React.useState(false)
   const handleOpenTrailer = () => {
     window.open(`${trailerLink}`, `Трейлер фильма "${filmName}"`)
+  }
+  const handleLikeClick = () => {
+    setIsLikied(!isLiked)
   }
   return (
     <div className="movies-card">
@@ -23,6 +27,7 @@ export default function MoviesCard({ filmName, filmDuration, filmPicture, isLike
           <button
             aria-label="like"
             type="button"
+            onClick={handleLikeClick}
             className={
               isLiked
                 ? `movies-card__button movies-button_type_active-like-btn`
