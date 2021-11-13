@@ -54,6 +54,7 @@ export default function Register() {
                 required
                 values={values.email}
                 onChange={handleChange}
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
               />
             </li>
             <li className="register__form-input-list-item">

@@ -35,6 +35,7 @@ export default function login() {
                 placeholder="Введите Ваш email"
                 value={values.email}
                 onChange={handleChange}
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                 required
               />
             </li>
