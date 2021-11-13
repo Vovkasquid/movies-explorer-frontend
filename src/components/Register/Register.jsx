@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
 import formValidationHook from '../utils/hooks/formValidationHook'
+import { register, login } from '../utils/api/MainApi'
 
 export default function Register() {
+  const history = useHistory()
   const { values, isValid, handleChange, errors } = formValidationHook({
     email: '',
     password: '',
@@ -13,8 +15,23 @@ export default function Register() {
 
   const onFormSumbit = (evt) => {
     evt.preventDefault()
+    // На всякий случай проверка на валидность
     if (isValid) {
-      console.log('Regiser SUBMIT')
+      // Делаем Api запрос
+      register(values.name, values.email, values.password)
+        .then((response) => {
+          console.log(response)
+          login(values.email, values.password)
+            .then((loginResponse) => {
+              console.log(loginResponse)
+              localStorage.setItem('token', loginResponse.token)
+              // TODO сохранить в контекст пользователя
+              // Редиректим юзера на movies
+              history.push('/movies')
+            })
+            .catch((err) => console.log(err))
+        })
+        .catch((err) => console.log(err))
     } else {
       console.log('Register Error')
     }
