@@ -1,37 +1,21 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
 import formValidationHook from '../utils/hooks/formValidationHook'
-import { register, login } from '../utils/api/MainApi'
 
-export default function Register() {
-  const history = useHistory()
+export default function Register({ handleRegister }) {
   const { values, isValid, handleChange, errors } = formValidationHook({
     email: '',
     password: '',
     name: '',
   })
 
-  const onFormSumbit = (evt) => {
+  const onRegisterSumbit = (evt) => {
     evt.preventDefault()
     // На всякий случай проверка на валидность
     if (isValid) {
-      // Делаем Api запрос
-      register(values.name, values.email, values.password)
-        .then((response) => {
-          console.log(response)
-          login(values.email, values.password)
-            .then((loginResponse) => {
-              console.log(loginResponse)
-              localStorage.setItem('token', loginResponse.token)
-              // TODO сохранить в контекст пользователя
-              // Редиректим юзера на movies
-              history.push('/movies')
-            })
-            .catch((err) => console.log(err))
-        })
-        .catch((err) => console.log(err))
+      handleRegister({ email: values.email, name: values.name, password: values.password })
     } else {
       console.log('Register Error')
     }
@@ -41,7 +25,7 @@ export default function Register() {
       <div className="register-container">
         <img src={logo} alt="лого проекта" className="register__logo" />
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form name="register" className="register__form" onSubmit={onFormSumbit}>
+        <form name="register" className="register__form" onSubmit={onRegisterSumbit}>
           <ul className="register__form-input-list">
             <li className="register__form-input-list-item">
               <p className="register__form-input-label">Имя</p>
