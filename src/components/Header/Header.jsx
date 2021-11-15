@@ -5,7 +5,7 @@ import './Header.css'
 import headerLogo from '../../images/logo.svg'
 import profileIcon from '../../images/profile_icon.svg'
 
-export default function Header({ isLogin }) {
+export default function Header({ isAuth }) {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
   const handleOpenSidebar = () => {
     setIsSidebarOpen(true)
@@ -16,7 +16,7 @@ export default function Header({ isLogin }) {
   return (
     <header className="header">
       <img src={headerLogo} alt="Логотип проекта" className="header__logo" />
-      {isLogin && (
+      {isAuth && (
         <nav className="header__navigation">
           <NavLink
             className="header__navigation-link"
@@ -34,7 +34,7 @@ export default function Header({ isLogin }) {
           </NavLink>
         </nav>
       )}
-      {isLogin ? (
+      {isAuth ? (
         <>
           <button type="button" className="header__menu-button" onClick={handleOpenSidebar} />
           <Link className="header__profile-link" to="/profile">

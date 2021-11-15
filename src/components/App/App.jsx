@@ -124,8 +124,18 @@ function App() {
             'При обновление информации о пользователе произошла ошибка. Пожалуйста, попробуйте позже.',
           )
         }
-        console.log('ошибка в профиле ', err)
       })
+  }
+
+  const handleExitAccount = () => {
+    // Очищаем localStorage
+    localStorage.clear()
+    // Переводим стейт авторизации в false
+    setIsAuth(false)
+    // Убираем пользователя из контекста
+    setCurrentUser('')
+    // Редиректим
+    history.push('/')
   }
 
   return (
@@ -134,13 +144,18 @@ function App() {
         <div className="page">
           <Switch>
             <Route path="/movies">
-              <Movies cardCount={cardCount} />
+              <Movies cardCount={cardCount} isAuth={isAuth} />
             </Route>
             <Route path="/saved-movies">
-              <SavedMovies cardCount={cardCount} />
+              <SavedMovies cardCount={cardCount} isAuth={isAuth} />
             </Route>
             <Route path="/profile">
-              <Profile updProfileNetworkError={updProfileNetworkError} handleEditProfile={handleEditProfile} />
+              <Profile
+                updProfileNetworkError={updProfileNetworkError}
+                handleEditProfile={handleEditProfile}
+                handleExitAccount={handleExitAccount}
+                isAuth={isAuth}
+              />
             </Route>
             <Route path="/signup">
               <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
@@ -149,7 +164,7 @@ function App() {
               <Login handleLogin={handleLogin} loginNetworkError={loginNetworkError} />
             </Route>
             <Route path="/">
-              <Main />
+              <Main isAuth={isAuth} />
             </Route>
             <Route path="/*">
               <Redirect to="/" />

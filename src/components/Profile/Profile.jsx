@@ -4,7 +4,7 @@ import Header from '../Header/Header'
 import formValidationHook from '../../utils/hooks/formValidationHook'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-export default function Profile({ updProfileNetworkError, handleEditProfile }) {
+export default function Profile({ updProfileNetworkError, handleEditProfile, handleExitAccount, isAuth }) {
   // Получаем текущего пользователя из контекста
   const currentUser = useContext(CurrentUserContext)
   const { values, isValid, handleChange, errors } = formValidationHook({
@@ -22,7 +22,7 @@ export default function Profile({ updProfileNetworkError, handleEditProfile }) {
 
   return (
     <>
-      <Header isLogin />
+      <Header isAuth={isAuth} />
       <section className="profile">
         <form className="profile__form" name="edit" onSubmit={onFormSumbit} noValidate>
           <h1 className="profile__form-title">{`Привет, ${currentUser?.name}`}</h1>
@@ -66,7 +66,7 @@ export default function Profile({ updProfileNetworkError, handleEditProfile }) {
             <button type="submit" className="profile__button" disabled={!isValid}>
               Редактировать
             </button>
-            <button type="button" className="profile__button profile__button_type_exit">
+            <button type="button" className="profile__button profile__button_type_exit" onClick={handleExitAccount}>
               Выйти из аккаунта
             </button>
           </div>
