@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { register, login, getUserInformation } from '../utils/api/MainApi'
+import { register, login, getUserInformation } from '../../utils/api/MainApi'
 
 function App() {
   const history = useHistory()
@@ -17,6 +17,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({})
   const [registerNetworkError, setRegisterNetworkError] = React.useState('')
   const [loginNetworkError, setLoginNetworkError] = React.useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [isAuth, setIsAuth] = React.useState('')
   // const [isAuth, setIsAuth] = React.useState(false)
   const handleResize = () => {
     // Записываем сайт в стейт
@@ -50,7 +52,10 @@ function App() {
             // проверяем пришли ли данные
             if (userInfo.data.name) {
               // Записываем данные в контекст
-              setCurrentUser(loginResponse.data)
+              console.log('userInfo', userInfo.data)
+              setCurrentUser(userInfo.data)
+              // Записываем стейт авторизации
+              setIsAuth(true)
               // Редиректим юзера на movies
               history.push('/movies')
             }

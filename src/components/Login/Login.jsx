@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import formValidationHook from '../utils/hooks/formValidationHook'
+import formValidationHook from '../../utils/hooks/formValidationHook'
 import './Login.css'
 import logo from '../../images/logo.svg'
 

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Profile.css'
 import Header from '../Header/Header'
-import formValidationHook from '../utils/hooks/formValidationHook'
+import formValidationHook from '../../utils/hooks/formValidationHook'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 export default function Profile() {
+  // Получаем текущего пользователя из контекста
+  const currentUser = useContext(CurrentUserContext)
   const { values, isValid, handleChange, errors } = formValidationHook({
     profileEmail: '',
     profileName: '',
@@ -23,7 +26,7 @@ export default function Profile() {
       <Header isLogin />
       <section className="profile">
         <form className="profile__form" name="edit" onSubmit={onFormSumbit} noValidate>
-          <h1 className="profile__form-title">Привет, Владимир!</h1>
+          <h1 className="profile__form-title">{`Привет, ${currentUser?.name}`}</h1>
           <ul className="profile__form-input-list">
             <li className="profile__form-input-item">
               <p className="profile__form-input-label">Имя</p>

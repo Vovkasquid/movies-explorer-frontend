@@ -1,8 +1,8 @@
 import React from 'react'
-import formValidationHook from '../utils/hooks/formValidationHook'
+import formValidationHook from '../../utils/hooks/formValidationHook'
 import './SearchForm.css'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import getMovies from '../utils/api/MoviesApi'
+import getMovies from '../../utils/api/MoviesApi'
 import Preloader from '../Preloader/Preloader'
 
 export default function SearchForm({ isSaved, cardCount }) {
