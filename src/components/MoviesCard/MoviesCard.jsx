@@ -22,24 +22,16 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
   const handleOpenTrailer = () => {
     window.open(`${aproovedMovie.trailer}`, `Трейлер фильма "${aproovedMovie.nameRU}"`)
   }
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     // Проверяем был ли лайкнут фильм
     if (isLiked) {
       // Если да, то надо удалить лайк
-      const isDeleted = handleDeleteFilm({ movieId: aproovedMovie.id })
-      // Если удаление прошло успешно, то выключаем лайк
-      if (isDeleted) {
-        setIsLikied(!isLiked)
-      }
+      handleDeleteFilm({ movieId: aproovedMovie.id })
+      setIsLikied(false)
     } else {
       // Если фильм не лайкнут, то лайкаем
-      console.log({ aproovedMovie })
-      const likedName = handleSaveFilm({ movie: aproovedMovie })
-      // Проверяем успешно было ли удаление
-      if (likedName === aproovedMovie.nameRU) {
-        // Переключаем лайк
-        setIsLikied(!isLiked)
-      }
+      handleSaveFilm({ movie: aproovedMovie })
+      setIsLikied(true)
     }
   }
   return (

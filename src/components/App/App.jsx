@@ -15,6 +15,7 @@ import {
   editProfile,
   saveMovies,
   deleteSavedMovies,
+  getMovies,
 } from '../../utils/api/MainApi'
 
 function App() {
@@ -26,11 +27,40 @@ function App() {
   const [loginNetworkError, setLoginNetworkError] = React.useState('')
   const [updProfileNetworkError, setUpdProfileNetworkError] = React.useState('')
   // eslint-disable-next-line no-unused-vars
+  const [savedMovies, setSavedMovies] = React.useState('')
+  // const [savedMovies, setSavedMovies] = React.useState('')
+  // eslint-disable-next-line no-unused-vars
   const [isAuth, setIsAuth] = React.useState('')
   // const [isAuth, setIsAuth] = React.useState(false)
   const handleResize = () => {
     // Записываем сайт в стейт
     setScreenWidth(window.innerWidth)
+  }
+
+  const tokenCheck = () => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      getUserInformation()
+        .then((userInfo) => {
+          // проверяем пришли ли данные
+          if (userInfo.data.name) {
+            // Записываем данные в контекст
+            console.log('userInfo', userInfo.data)
+            setCurrentUser(userInfo.data)
+            // Записываем стейт авторизации
+            setIsAuth(true)
+            // Запрашиваем сохранённые фильмы
+            getMovies()
+              .then((res) => {
+                console.log('Фильмы сохранённые этим юзером, ', res.data)
+                // Сохраняем фильмы в стейт
+                setSavedMovies(res.data)
+              })
+              .catch((err) => console.log(err))
+          }
+        })
+        .catch((err) => console.log(err))
+    }
   }
 
   React.useEffect(() => {
@@ -45,6 +75,11 @@ function App() {
   React.useEffect(() => {
     setCardCount(window.innerWidth > 500 ? 7 : 5)
   }, [screenWidth])
+
+  // Получаем данные пользователя при монтировании компонента
+  React.useEffect(() => {
+    tokenCheck()
+  }, [])
 
   const handleLogin = ({ email, password }) => {
     // Обнуляем ошибку логина
@@ -149,15 +184,20 @@ function App() {
     // вызываем метод Api для сохранения фильма
     // Если всё норм, вернём название фильма
     saveMovies(movie)
-      .then((savedMovie) => savedMovie.nameRU)
-      .catch((err) => console.log(err))
+      .then((savedMovie) => {
+        console.log('anwer like:', savedMovie.data.nameRU)
+        return savedMovie.data.nameRU
+      })
+      // eslint-disable-next-line prefer-promise-reject-errors
+      .catch(() => Promise.reject(false))
   }
 
   const handleDeleteFilm = ({ movieId }) => {
     // Если удаление прошло успешно, то вернём true, чтобы удалить лайк
     deleteSavedMovies(movieId)
       .then(() => true)
-      .catch((err) => console.log(err))
+      // eslint-disable-next-line prefer-promise-reject-errors
+      .catch(() => Promise.reject(false))
   }
   return (
     <CurrentUserContext.Provider value={currentUser}>
