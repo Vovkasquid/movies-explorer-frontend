@@ -4,7 +4,7 @@ import formValidationHook from '../utils/hooks/formValidationHook'
 import './Login.css'
 import logo from '../../images/logo.svg'
 
-export default function login() {
+export default function login({ handleLogin }) {
   const { values, isValid, handleChange, errors } = formValidationHook({
     email: '',
     password: '',
@@ -14,6 +14,8 @@ export default function login() {
     evt.preventDefault()
     if (isValid) {
       console.log('Login SUBMIT')
+      // Если все поля валидны, то можно залогиниться
+      handleLogin({ email: values.email, password: values.password })
     } else {
       console.log('Login Error')
     }

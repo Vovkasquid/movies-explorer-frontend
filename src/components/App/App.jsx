@@ -15,6 +15,7 @@ function App() {
   const [screenWidth, setScreenWidth] = React.useState(window.innerWidth)
   const [cardCount, setCardCount] = React.useState(window.innerWidth > 500 ? 7 : 5)
   const [currentUser, setCurrentUser] = React.useState({})
+  const [registerNetworkError, setRegisterNetworkError] = React.useState('')
   const handleResize = () => {
     // Записываем сайт в стейт
     setScreenWidth(window.innerWidth)
@@ -36,9 +37,8 @@ function App() {
   const handleLogin = ({ email, password }) => {
     login(email, password)
       .then((loginResponse) => {
-        console.log(loginResponse)
+        // Cохраняем в контекст пользователя юзера
         localStorage.setItem('token', loginResponse.token)
-        // TODO сохранить в контекст пользователя
         // Редиректим юзера на movies
         history.push('/movies')
       })
@@ -46,17 +46,24 @@ function App() {
   }
 
   const handleRegister = ({ name, email, password }) => {
+    // Обнуляем ошибку регистрации
+    setRegisterNetworkError('')
     // Делаем Api запрос
     register(name, email, password)
       .then((response) => {
-        console.log(response)
-        console.log(setCurrentUser)
         // Записываем пользователя в контекст
         setCurrentUser(response.data)
         // Логиним юзера
         handleLogin({ email, password })
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        if (err === 'Ошибка: 409') {
+          setRegisterNetworkError('Пользователь с таким email уже существует.')
+        } else {
+          setRegisterNetworkError('При регистрации пользователя произошла ошибка.')
+        }
+      })
   }
 
   return (
@@ -74,10 +81,10 @@ function App() {
               <Profile />
             </Route>
             <Route path="/signup">
-              <Register handleRegister={handleRegister} />
+              <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
             </Route>
             <Route path="/signin">
-              <Login />
+              <Login handleLogin={handleLogin} />
             </Route>
             <Route path="/">
               <Main />
