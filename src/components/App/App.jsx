@@ -8,7 +8,14 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { register, login, getUserInformation, editProfile } from '../../utils/api/MainApi'
+import {
+  register,
+  login,
+  getUserInformation,
+  editProfile,
+  saveMovies,
+  deleteSavedMovies,
+} from '../../utils/api/MainApi'
 
 function App() {
   const history = useHistory()
@@ -138,13 +145,32 @@ function App() {
     history.push('/')
   }
 
+  const handleSaveFilm = ({ movie }) => {
+    // вызываем метод Api для сохранения фильма
+    // Если всё норм, вернём название фильма
+    saveMovies(movie)
+      .then((savedMovie) => savedMovie.nameRU)
+      .catch((err) => console.log(err))
+  }
+
+  const handleDeleteFilm = ({ movieId }) => {
+    // Если удаление прошло успешно, то вернём true, чтобы удалить лайк
+    deleteSavedMovies(movieId)
+      .then(() => true)
+      .catch((err) => console.log(err))
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <div className="page">
           <Switch>
             <Route path="/movies">
-              <Movies cardCount={cardCount} isAuth={isAuth} />
+              <Movies
+                cardCount={cardCount}
+                isAuth={isAuth}
+                handleSaveFilm={handleSaveFilm}
+                handleDeleteFilm={handleDeleteFilm}
+              />
             </Route>
             <Route path="/saved-movies">
               <SavedMovies cardCount={cardCount} isAuth={isAuth} />

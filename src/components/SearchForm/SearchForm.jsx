@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import getMovies from '../../utils/api/MoviesApi'
 import Preloader from '../Preloader/Preloader'
 
-export default function SearchForm({ isSaved, cardCount }) {
+export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleDeleteFilm }) {
   const { values, isValid, handleChange } = formValidationHook({
     search: '',
   })
@@ -162,6 +162,8 @@ export default function SearchForm({ isSaved, cardCount }) {
           cardCount={cardCount}
           isBtnVisible={isBtnVisible}
           setIsBtnVisible={setIsBtnVisible}
+          handleDeleteFilm={handleDeleteFilm}
+          handleSaveFilm={handleSaveFilm}
         />
       )}
       {isPreloaderVisible && <Preloader />}

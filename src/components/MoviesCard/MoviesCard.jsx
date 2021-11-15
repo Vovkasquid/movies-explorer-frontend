@@ -3,18 +3,48 @@
 import React from 'react'
 import './MoviesCard.css'
 
-export default function MoviesCard({ filmName, filmDuration, filmPicture, isSaved, trailerLink }) {
+export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteFilm, handleSaveFilm }) {
   const [isLiked, setIsLikied] = React.useState(false)
+  // Часть фильмов приходит без некоторых полей и их надо заполнить
+  const aproovedMovie = {
+    country: movie.country || 'Нет данных',
+    director: movie.director || 'Нет данных',
+    duration: movie.duration || 0,
+    year: movie.year || 'Нет данных',
+    description: movie.description || ' ',
+    image: `https://api.nomoreparties.co${movie.image.url}`,
+    trailer: movie.trailerLink,
+    thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+    movieId: movie.id,
+    nameRU: movie.nameRU || 'Нет данных',
+    nameEN: movie.nameEN || 'Нет данных',
+  }
   const handleOpenTrailer = () => {
-    window.open(`${trailerLink}`, `Трейлер фильма "${filmName}"`)
+    window.open(`${aproovedMovie.trailer}`, `Трейлер фильма "${aproovedMovie.nameRU}"`)
   }
   const handleLikeClick = () => {
-    setIsLikied(!isLiked)
+    // Проверяем был ли лайкнут фильм
+    if (isLiked) {
+      // Если да, то надо удалить лайк
+      const isDeleted = handleDeleteFilm(aproovedMovie.id)
+      // Если удаление прошло успешно, то выключаем лайк
+      if (isDeleted) {
+        setIsLikied(!isLiked)
+      }
+    } else {
+      // Если фильм не лайкнут, то лайкаем
+      const likedName = handleSaveFilm(aproovedMovie)
+      // Проверяем успешно было ли удаление
+      if (likedName === aproovedMovie.nameRU) {
+        // Переключаем лайк
+        setIsLikied(!isLiked)
+      }
+    }
   }
   return (
     <div className="movies-card">
       <div className="movies-card__info-container">
-        <h3 className="movies-card__title">{filmName}</h3>
+        <h3 className="movies-card__title">{aproovedMovie.nameRU}</h3>
         <p className="movies-card__duration">{filmDuration}</p>
         {isSaved && (
           <button
@@ -36,7 +66,12 @@ export default function MoviesCard({ filmName, filmDuration, filmPicture, isSave
           />
         )}
       </div>
-      <img className="movies-card__film-picture" alt="картинка фильма" src={filmPicture} onClick={handleOpenTrailer} />
+      <img
+        className="movies-card__film-picture"
+        alt="картинка фильма"
+        src={aproovedMovie.image}
+        onClick={handleOpenTrailer}
+      />
     </div>
   )
 }

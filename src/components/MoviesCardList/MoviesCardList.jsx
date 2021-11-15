@@ -11,6 +11,8 @@ export default function MoviesCardList({
   cardCount,
   isBtnVisible,
   setIsBtnVisible,
+  handleDeleteFilm,
+  handleSaveFilm,
 }) {
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   // renderCounter - сколько мы отрежем от общего массива с фильмами
@@ -36,11 +38,14 @@ export default function MoviesCardList({
             renderArray.map((movie) => (
               <li key={movie.id}>
                 <MovieCard
+                  movie={movie}
                   filmName={movie.nameRU}
                   filmDuration={filmDuration(movie)}
                   filmPicture={`https://api.nomoreparties.co${movie.image.url}`}
                   isSaved={isSaved}
                   trailerLink={movie.trailerLink}
+                  handleDeleteFilm={handleDeleteFilm}
+                  handleSaveFilm={handleSaveFilm}
                 />
               </li>
             ))}
@@ -50,12 +55,7 @@ export default function MoviesCardList({
           {renderArray &&
             renderArray.map((movie) => (
               <li key={movie.id}>
-                <MovieCard
-                  filmName={movie.nameRU}
-                  filmDuration={filmDuration(movie)}
-                  filmPicture={`https://api.nomoreparties.co${movie.image.url}`}
-                  isSaved={isSaved}
-                />
+                <MovieCard movie={movie} handleDeleteFilm={handleDeleteFilm} isSaved={isSaved} />
               </li>
             ))}
         </ul>
