@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { register, login } from '../utils/api/MainApi'
+import { register, login, getUserInformation } from '../utils/api/MainApi'
 
 function App() {
   const history = useHistory()
@@ -16,6 +16,8 @@ function App() {
   const [cardCount, setCardCount] = React.useState(window.innerWidth > 500 ? 7 : 5)
   const [currentUser, setCurrentUser] = React.useState({})
   const [registerNetworkError, setRegisterNetworkError] = React.useState('')
+  const [loginNetworkError, setLoginNetworkError] = React.useState('')
+  // const [isAuth, setIsAuth] = React.useState(false)
   const handleResize = () => {
     // Записываем сайт в стейт
     setScreenWidth(window.innerWidth)
@@ -35,14 +37,47 @@ function App() {
   }, [screenWidth])
 
   const handleLogin = ({ email, password }) => {
+    // Обнуляем ошибку логина
+    setLoginNetworkError('')
     login(email, password)
       .then((loginResponse) => {
-        // Cохраняем в контекст пользователя юзера
+        console.log(loginResponse)
+        // Cохраняем в контекст пользователя токен юзера
         localStorage.setItem('token', loginResponse.token)
-        // Редиректим юзера на movies
-        history.push('/movies')
+        // Получаем данные о юзере
+        getUserInformation()
+          .then((userInfo) => {
+            // проверяем пришли ли данные
+            if (userInfo.data.name) {
+              // Записываем данные в контекст
+              setCurrentUser(loginResponse.data)
+              // Редиректим юзера на movies
+              history.push('/movies')
+            }
+          })
+          .catch((err) => {
+            console.log('getUserErr =, ', err)
+            if (err === 'Ошибка: 401') {
+              setLoginNetworkError('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
+            } else if (err === 'Ошибка: 404') {
+              setLoginNetworkError('При авторизации произошла ошибка. Переданный токен некорректен.')
+            } else {
+              setLoginNetworkError(
+                'При авторизации пользователя произошла ошибка. Пожалуйста, попробуйте повторить авторизацию позже.',
+              )
+            }
+          })
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        if (err === 'Ошибка: 401') {
+          setLoginNetworkError('Вы ввели неправильный логин или пароль.')
+        } else {
+          setLoginNetworkError(
+            'При авторизации пользователя произошла ошибка. Пожалуйста, попробуйте повторить авторизацию позже.',
+          )
+        }
+      })
   }
 
   const handleRegister = ({ name, email, password }) => {
@@ -84,7 +119,7 @@ function App() {
               <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
             </Route>
             <Route path="/signin">
-              <Login handleLogin={handleLogin} />
+              <Login handleLogin={handleLogin} loginNetworkError={loginNetworkError} />
             </Route>
             <Route path="/">
               <Main />

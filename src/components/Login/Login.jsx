@@ -4,7 +4,7 @@ import formValidationHook from '../utils/hooks/formValidationHook'
 import './Login.css'
 import logo from '../../images/logo.svg'
 
-export default function login({ handleLogin }) {
+export default function login({ handleLogin, loginNetworkError }) {
   const { values, isValid, handleChange, errors } = formValidationHook({
     email: '',
     password: '',
@@ -60,6 +60,15 @@ export default function login({ handleLogin }) {
                 }
               >
                 {errors?.email} {errors?.password}
+              </span>
+              <span
+                className={
+                  loginNetworkError
+                    ? 'login__form-input-error login__form-input-error_active'
+                    : 'login__form-input-error'
+                }
+              >
+                {loginNetworkError}
               </span>
             </li>
           </ul>

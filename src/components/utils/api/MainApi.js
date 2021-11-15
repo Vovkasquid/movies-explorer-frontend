@@ -28,15 +28,6 @@ const login = (email, password) => fetch(`${baseUrl}/signin`, {
   })
   .then(checkResponse)
 
-const getToken = (token) => fetch(`${baseUrl}/users/me`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    }
-  })
-  .then(checkResponse)
-
 const getUserInformation = () => fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {
@@ -96,4 +87,4 @@ const deleteSavedMovies = (id) => fetch(`${baseUrl}/movies/${id}`, {
   })
   .then(checkResponse)
 
-  export { register, login, getToken, getUserInformation, editProfile, saveMovies, getMovies, deleteSavedMovies }
+  export { register, login, getUserInformation, editProfile, saveMovies, getMovies, deleteSavedMovies }
