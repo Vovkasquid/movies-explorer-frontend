@@ -26,15 +26,15 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
     // Проверяем был ли лайкнут фильм
     if (isLiked) {
       // Если да, то надо удалить лайк
-      const isDeleted = handleDeleteFilm({ movie: aproovedMovie.id })
+      const isDeleted = handleDeleteFilm({ movieId: aproovedMovie.id })
       // Если удаление прошло успешно, то выключаем лайк
       if (isDeleted) {
         setIsLikied(!isLiked)
       }
     } else {
       // Если фильм не лайкнут, то лайкаем
-      console.log({ movie: aproovedMovie })
-      const likedName = handleSaveFilm(aproovedMovie)
+      console.log({ aproovedMovie })
+      const likedName = handleSaveFilm({ movie: aproovedMovie })
       // Проверяем успешно было ли удаление
       if (likedName === aproovedMovie.nameRU) {
         // Переключаем лайк
