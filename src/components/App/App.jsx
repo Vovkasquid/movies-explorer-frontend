@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { register, login, getUserInformation } from '../../utils/api/MainApi'
+import { register, login, getUserInformation, editProfile } from '../../utils/api/MainApi'
 
 function App() {
   const history = useHistory()
@@ -17,6 +17,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({})
   const [registerNetworkError, setRegisterNetworkError] = React.useState('')
   const [loginNetworkError, setLoginNetworkError] = React.useState('')
+  const [updProfileNetworkError, setUpdProfileNetworkError] = React.useState('')
   // eslint-disable-next-line no-unused-vars
   const [isAuth, setIsAuth] = React.useState('')
   // const [isAuth, setIsAuth] = React.useState(false)
@@ -62,9 +63,9 @@ function App() {
           })
           .catch((err) => {
             console.log('getUserErr =, ', err)
-            if (err === 'Ошибка: 401') {
+            if (err.status === 401) {
               setLoginNetworkError('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
-            } else if (err === 'Ошибка: 404') {
+            } else if (err.status === 'Ошибка: 404') {
               setLoginNetworkError('При авторизации произошла ошибка. Переданный токен некорректен.')
             } else {
               setLoginNetworkError(
@@ -75,7 +76,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-        if (err === 'Ошибка: 401') {
+        if (err.status === 401) {
           setLoginNetworkError('Вы ввели неправильный логин или пароль.')
         } else {
           setLoginNetworkError(
@@ -98,11 +99,32 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-        if (err === 'Ошибка: 409') {
+        if (err.status === 409) {
           setRegisterNetworkError('Пользователь с таким email уже существует.')
         } else {
           setRegisterNetworkError('При регистрации пользователя произошла ошибка.')
         }
+      })
+  }
+
+  const handleEditProfile = ({ name, email }) => {
+    // Обнуляем ошибки в профиле
+    setUpdProfileNetworkError('')
+    // Делаем запрос с обновлением
+    editProfile(name, email)
+      .then((res) => {
+        // Если мы здесь, значит всё ок, обновляем данные пользователя в контексте
+        setCurrentUser(res.data)
+      })
+      .catch((err) => {
+        if (err.status === 409) {
+          setUpdProfileNetworkError(`E-mail ${email} уже занят`)
+        } else {
+          setUpdProfileNetworkError(
+            'При обновление информации о пользователе произошла ошибка. Пожалуйста, попробуйте позже.',
+          )
+        }
+        console.log('ошибка в профиле ', err)
       })
   }
 
@@ -118,7 +140,7 @@ function App() {
               <SavedMovies cardCount={cardCount} />
             </Route>
             <Route path="/profile">
-              <Profile />
+              <Profile updProfileNetworkError={updProfileNetworkError} handleEditProfile={handleEditProfile} />
             </Route>
             <Route path="/signup">
               <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
