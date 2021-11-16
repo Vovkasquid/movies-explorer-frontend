@@ -27,6 +27,7 @@ export default function MoviesCard({
     nameEN: movie.nameEN || 'Нет данных',
   }
   const [isLiked, setIsLiked] = React.useState(false)
+  const [deletingMovieId, setIsDeletingMovieId] = React.useState('0')
   // При монтировании проверяем надо ли лайкать карточку
   React.useEffect(() => {
     console.log('this movie id', movie.id)
@@ -43,7 +44,10 @@ export default function MoviesCard({
     if (checkSave) {
       setIsLiked(true)
       // Записываем из _id в _id
+      console.log('checkSave, ', checkSave._id)
       aproovedMovie.movieId = checkSave._id
+      setIsDeletingMovieId(checkSave._id)
+      console.log('aproovedMovie.movieId, ', aproovedMovie.movieId)
     } else {
       setIsLiked(false)
     }
@@ -58,7 +62,8 @@ export default function MoviesCard({
     if (isLiked) {
       // Если да, то надо удалить лайк
       console.log('state with id ', movieBase)
-      handleDeleteFilm({ movieId: aproovedMovie._id })
+      console.log('deleting movieId, ', aproovedMovie.movieId)
+      handleDeleteFilm({ movieId: deletingMovieId })
       // setIsLiked(false)
     } else {
       // Если фильм не лайкнут, то лайкаем

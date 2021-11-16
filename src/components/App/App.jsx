@@ -205,9 +205,19 @@ function App() {
   const handleDeleteFilm = ({ movieId }) => {
     // Если удаление прошло успешно, то вернём true, чтобы удалить лайк
     deleteSavedMovies(movieId)
-      .then(() => console.log('success delete'))
+      .then(() => {
+        console.log('succes delete')
+        // Получаем новый массив сохранённых фильмов
+        getMovies()
+          .then((res) => {
+            console.log('Фильмы сохранённые этим юзером, ', res.data)
+            // Сохраняем фильмы в стейт
+            setSavedMovies(res.data)
+          })
+          .catch((err) => console.log(err))
+      })
       // eslint-disable-next-line prefer-promise-reject-errors
-      .catch(() => Promise.reject(false))
+      .catch((err) => console.log(err))
   }
   return (
     <CurrentUserContext.Provider value={currentUser}>
