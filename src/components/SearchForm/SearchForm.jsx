@@ -31,6 +31,12 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
       setMoviesStorage(savedMovies)
     }
   }, [])
+  // Если изменится сохраннёный массив, то надо перерендерить saved-movies
+  React.useEffect(() => {
+    if (isSaved) {
+      setMoviesStorage(savedMovies)
+    }
+  }, [savedMovies])
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)

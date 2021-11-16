@@ -20,6 +20,7 @@ export default function MoviesCardList({
     console.log('saved movies = ', savedMovies)
     console.log('movies in movies = ', movies)
   }, [])
+
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   // renderCounter - сколько мы отрежем от общего массива с фильмами
   // если вкладка "сохранённые фильмы, то надо отрендерить все фильмы сразу"
