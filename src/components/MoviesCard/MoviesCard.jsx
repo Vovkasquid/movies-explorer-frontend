@@ -1,10 +1,42 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import './MoviesCard.css'
 
-export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteFilm, handleSaveFilm }) {
-  const [isLiked, setIsLikied] = React.useState(false)
+export default function MoviesCard({
+  movie,
+  filmDuration,
+  isSaved,
+  handleDeleteFilm,
+  handleSaveFilm,
+  movieBase,
+  savedMovies,
+}) {
+  const [isLiked, setIsLiked] = React.useState(false)
+  // При монтировании проверяем надо ли лайкать карточку
+  React.useEffect(() => {
+    console.log('this movie id', movie.id)
+    // eslint-disable-next-line no-unused-vars
+    const checkSave = savedMovies.find((item) => {
+      console.log('movieID', item.movieId)
+      console.log('movie ID', movie.id)
+      console.log('movieID == movie.id? ', +item.movieId === +movie.id)
+      return +item.movieId === +movie.id
+    })
+    if (checkSave) {
+      setIsLiked(true)
+    } else {
+      setIsLiked(false)
+    }
+
+    /* setIsLiked(
+      savedMovies.find((item) => {
+        console.log(item)
+        return item.movieId === movie.id
+      }),
+    ) */
+  }, [])
   // Часть фильмов приходит без некоторых полей и их надо заполнить
   const aproovedMovie = {
     country: movie.country || 'Нет данных',
@@ -18,6 +50,7 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
     movieId: movie.id,
     nameRU: movie.nameRU || 'Нет данных',
     nameEN: movie.nameEN || 'Нет данных',
+    _id: movieBase?.nameRU === movie.nameRU ? movieBase._id : 0,
   }
   const handleOpenTrailer = () => {
     window.open(`${aproovedMovie.trailer}`, `Трейлер фильма "${aproovedMovie.nameRU}"`)
@@ -26,12 +59,13 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
     // Проверяем был ли лайкнут фильм
     if (isLiked) {
       // Если да, то надо удалить лайк
-      handleDeleteFilm({ movieId: aproovedMovie.id })
-      setIsLikied(false)
+      console.log('state with id ', movieBase)
+      handleDeleteFilm({ movieId: aproovedMovie._id })
+      setIsLiked(false)
     } else {
       // Если фильм не лайкнут, то лайкаем
       handleSaveFilm({ movie: aproovedMovie })
-      setIsLikied(true)
+      setIsLiked(true)
     }
   }
   return (

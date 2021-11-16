@@ -4,7 +4,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import SearchForm from '../SearchForm/SearchForm'
 
-export default function Movies({ cardCount, isAuth, handleSaveFilm, handleDeleteFilm, savedMovies }) {
+export default function Movies({ cardCount, isAuth, handleSaveFilm, handleDeleteFilm, savedMovies, movieBase }) {
   return (
     <>
       <Header isAuth={isAuth} />
@@ -14,6 +14,7 @@ export default function Movies({ cardCount, isAuth, handleSaveFilm, handleDelete
         handleSaveFilm={handleSaveFilm}
         handleDeleteFilm={handleDeleteFilm}
         savedMovies={savedMovies}
+        movieBase={movieBase}
       />
       <Footer />
     </>

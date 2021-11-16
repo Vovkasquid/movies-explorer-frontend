@@ -13,6 +13,8 @@ export default function MoviesCardList({
   setIsBtnVisible,
   handleDeleteFilm,
   handleSaveFilm,
+  movieBase,
+  savedMovies,
 }) {
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   // renderCounter - сколько мы отрежем от общего массива с фильмами
@@ -46,6 +48,8 @@ export default function MoviesCardList({
                   trailerLink={movie.trailerLink}
                   handleDeleteFilm={handleDeleteFilm}
                   handleSaveFilm={handleSaveFilm}
+                  movieBase={movieBase}
+                  savedMovies={savedMovies}
                 />
               </li>
             ))}

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import './App.css'
@@ -27,6 +28,7 @@ function App() {
   const [loginNetworkError, setLoginNetworkError] = React.useState('')
   const [updProfileNetworkError, setUpdProfileNetworkError] = React.useState('')
   const [savedMovies, setSavedMovies] = React.useState('')
+  const [movieBase, setMovieBase] = React.useState({})
   // const [savedMovies, setSavedMovies] = React.useState('')
   const [isAuth, setIsAuth] = React.useState('')
   // const [isAuth, setIsAuth] = React.useState(false)
@@ -184,6 +186,9 @@ function App() {
     saveMovies(movie)
       .then((savedMovie) => {
         console.log('anwer like:', savedMovie.data.nameRU)
+        // eslint-disable-next-line no-param-reassign
+        // Сохраняем ответ в стейт, чтобы каждый раз не запрашивать список всех фильмов
+        setMovieBase(savedMovies.data)
       })
       // eslint-disable-next-line prefer-promise-reject-errors
       .catch(() => Promise.reject(false))
@@ -208,6 +213,7 @@ function App() {
                 handleSaveFilm={handleSaveFilm}
                 handleDeleteFilm={handleDeleteFilm}
                 savedMovies={savedMovies}
+                movieBase={movieBase}
               />
             </Route>
             <Route path="/saved-movies">
