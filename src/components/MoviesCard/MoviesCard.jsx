@@ -56,8 +56,13 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
     window.open(`${aproovedMovie.trailer}`, `Трейлер фильма "${aproovedMovie.nameRU}"`)
   }
   const handleLikeClick = async () => {
-    // Проверяем был ли лайкнут фильм
-    if (isLiked) {
+    // Если роут /saved-movies, то просто удаляем фильм
+    console.log('delete')
+    if (isSaved) {
+      console.log('delete in if')
+      handleDeleteFilm({ movieId: aproovedMovie.movieId })
+    } else if (isLiked) {
+      // Проверяем был ли лайкнут фильм
       // Если да, то надо удалить лайк
       console.log('deleting movieId, ', aproovedMovie.movieId)
       handleDeleteFilm({ movieId: deletingMovieId })
@@ -76,6 +81,7 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
         {isSaved && (
           <button
             aria-label="delete"
+            onClick={handleLikeClick}
             type="button"
             className="movies-card__button movies-card__button_type_close-btn"
           />

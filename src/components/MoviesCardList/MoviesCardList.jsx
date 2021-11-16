@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react'
 import './MoviesCardList.css'
 import MovieCard from '../MoviesCard/MoviesCard'
@@ -17,6 +18,7 @@ export default function MoviesCardList({
 }) {
   React.useEffect(() => {
     console.log('saved movies = ', savedMovies)
+    console.log('movies in movies = ', movies)
   }, [])
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   // renderCounter - сколько мы отрежем от общего массива с фильмами
@@ -54,9 +56,9 @@ export default function MoviesCardList({
         </ul>
       ) : (
         <ul className="movies-card-list__list">
-          {savedMovies &&
-            savedMovies.map((movie) => (
-              <li key={movie.id}>
+          {renderArray &&
+            renderArray.map((movie) => (
+              <li key={movie._id}>
                 <MovieCard
                   movie={movie}
                   handleDeleteFilm={handleDeleteFilm}

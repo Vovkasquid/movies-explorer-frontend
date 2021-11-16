@@ -28,6 +28,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     // Если пришли с роута /saved-movies, то надо сразу отрендерить карты без поиска
     if (isSaved) {
       setIsFinding(true)
+      setMoviesStorage(savedMovies)
     }
   }, [])
   // Функция фильтрации по имени
@@ -36,52 +37,81 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const onSubmitForm = (evt) => {
     evt.preventDefault()
     if (isValid) {
-      console.log('SUBMIT SEARCH')
-      setIsError(false)
-      setIsNetworkError(false)
-      // Блокируем инпут
-      setIsInputDisabled(true)
-      // Запускаем прелоадер
-      setIsPreloaderVisible(true)
-      getMovies()
-        .then((movies) => {
-          console.log(movies)
-          // Выставляем начальное число рендера карт
-          setRenderCounter(cardCount)
-          // Отключаем прелоадер
-          setIsPreloaderVisible(false)
-          // Разблокируем инпут
-          setIsInputDisabled(false)
-          // Фильтруем фильмы
-          const filteredFilms = filterItems(movies, values.search)
-          // Записываем эти фильтры в стейт отфильтрованного
-          setFilterFilmArray(filteredFilms)
-          // Заранее записываем в стейт короткометражки
-          setShortFilmsArray(filteredFilms.filter((movie) => movie.duration <= 40))
-          // Записываем длину массива с фильмами
-          setDataLenght(filteredFilms.length)
-          // Выставляем видимость/невидимость кнопки "ещё"
-          console.log('dataLength ', filteredFilms.length)
-          console.log('cardCount ', cardCount)
-          setIsBtnVisible(filteredFilms.length > cardCount)
-          // Записываем фильмы в стейт
-          setMoviesStorage(filteredFilms)
-          if (filteredFilms.length === 0) {
-            setIsNothingFound(true)
-            setIsFinding(false)
-          } else {
-            setIsNothingFound(false)
-            // Включаем секцию с фильмами
-            setIsFinding(true)
-          }
-        })
-        .catch((err) => {
-          setIsPreloaderVisible(false)
-          setIsNetworkError(true)
-          console.log(err)
-          // Разблокируем инпут
-          setIsInputDisabled(false)
-        })
+      // Разграничиваем поведение сабмита при movies и saved-movies
+      if (!isSaved) {
+        console.log('SUBMIT SEARCH')
+        setIsError(false)
+        setIsNetworkError(false)
+        // Блокируем инпут
+        setIsInputDisabled(true)
+        // Запускаем прелоадер
+        setIsPreloaderVisible(true)
+        getMovies()
+          .then((movies) => {
+            console.log(movies)
+            // Выставляем начальное число рендера карт
+            setRenderCounter(cardCount)
+            // Отключаем прелоадер
+            setIsPreloaderVisible(false)
+            // Разблокируем инпут
+            setIsInputDisabled(false)
+            // Фильтруем фильмы
+            const filteredFilms = filterItems(movies, values.search)
+            // Записываем эти фильтры в стейт отфильтрованного
+            setFilterFilmArray(filteredFilms)
+            // Заранее записываем в стейт короткометражки
+            setShortFilmsArray(filteredFilms.filter((movie) => movie.duration <= 40))
+            // Записываем длину массива с фильмами
+            setDataLenght(filteredFilms.length)
+            // Выставляем видимость/невидимость кнопки "ещё"
+            console.log('dataLength ', filteredFilms.length)
+            console.log('cardCount ', cardCount)
+            setIsBtnVisible(filteredFilms.length > cardCount)
+            // Записываем фильмы в стейт
+            setMoviesStorage(filteredFilms)
+            if (filteredFilms.length === 0) {
+              setIsNothingFound(true)
+              setIsFinding(false)
+            } else {
+              setIsNothingFound(false)
+              // Включаем секцию с фильмами
+              setIsFinding(true)
+            }
+          })
+          .catch((err) => {
+            setIsPreloaderVisible(false)
+            setIsNetworkError(true)
+            console.log(err)
+            // Разблокируем инпут
+            setIsInputDisabled(false)
+          })
+      } else {
+        // Блокируем инпут
+        setIsInputDisabled(true)
+        // Запускаем прелоадер
+        setIsPreloaderVisible(true)
+        // Делаем поиск по savedMovies
+        const filteredSavedFilms = filterItems(savedMovies, values.search)
+        setFilterFilmArray(filteredSavedFilms)
+        // Записываем эти фильтры в стейт отфильтрованного
+        setFilterFilmArray(filteredSavedFilms)
+        // Заранее записываем в стейт короткометражки
+        setShortFilmsArray(filteredSavedFilms.filter((movie) => movie.duration <= 40))
+        // Записываем фильмы в стейт
+        setMoviesStorage(filteredSavedFilms)
+        if (filteredSavedFilms.length === 0) {
+          setIsNothingFound(true)
+          setIsFinding(false)
+        } else {
+          setIsNothingFound(false)
+          // Включаем секцию с фильмами
+          setIsFinding(true)
+        }
+        // Отключаем прелоадер
+        setIsPreloaderVisible(false)
+        // Разблокируем инпут
+        setIsInputDisabled(false)
+      }
     } else {
       setIsError(true)
     }
@@ -94,28 +124,30 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   }
   // При изменении стейта будем менять массив, который идёт на рендер
   React.useEffect(() => {
-    // Если возвращаемся из короткометражек, то переключить стейты
-    if (!isShort && filterFilmArray.length > 0) {
-      setIsNothingFound(false)
-      setIsFinding(true)
-    }
-    // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
-    if (isShort && shortFilmsArray.length === 0) {
-      setIsNothingFound(true)
-      setIsFinding(false)
-    }
-    if (isShort) {
-      setMoviesStorage(shortFilmsArray)
-      // Отключаем кнопку "ещё", если она не нужна в короткометражках
-      if (shortFilmsArray.length <= cardCount) {
-        setIsBtnVisible(false)
+    if (!isSaved) {
+      // Если возвращаемся из короткометражек, то переключить стейты
+      if (!isShort && filterFilmArray.length > 0) {
+        setIsNothingFound(false)
+        setIsFinding(true)
       }
-    } else {
-      setMoviesStorage(filterFilmArray)
-      // Включаем кнопку "ещё", если она необходима
-      console.log('сколько осталось, ', filterFilmArray.length - renderCounter)
-      if (filterFilmArray.length > renderCounter) {
-        setIsBtnVisible(true)
+      // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
+      if (isShort && shortFilmsArray.length === 0) {
+        setIsNothingFound(true)
+        setIsFinding(false)
+      }
+      if (isShort) {
+        setMoviesStorage(shortFilmsArray)
+        // Отключаем кнопку "ещё", если она не нужна в короткометражках
+        if (shortFilmsArray.length <= cardCount) {
+          setIsBtnVisible(false)
+        }
+      } else {
+        setMoviesStorage(filterFilmArray)
+        // Включаем кнопку "ещё", если она необходима
+        console.log('сколько осталось, ', filterFilmArray.length - renderCounter)
+        if (filterFilmArray.length > renderCounter) {
+          setIsBtnVisible(true)
+        }
       }
     }
   }, [isShort])
