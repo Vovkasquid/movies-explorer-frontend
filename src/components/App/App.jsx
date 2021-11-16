@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
+import { Switch, Route, useHistory } from 'react-router-dom'
 import './App.css'
 import Main from '../Main/Main'
 import Movies from '../Movies/Movies'
@@ -19,6 +19,7 @@ import {
   getMovies,
 } from '../../utils/api/MainApi'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import PageNotFound from '../PageNotFound/PageNotFound'
 
 function App() {
   const history = useHistory()
@@ -258,7 +259,7 @@ function App() {
               <Main isAuth={isAuth} />
             </Route>
             <Route path="/*">
-              <Redirect to="/" />
+              <PageNotFound />
             </Route>
           </Switch>
         </div>

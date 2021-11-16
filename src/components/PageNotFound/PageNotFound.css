@@ -43,6 +43,11 @@
   text-decoration: none;
   color: hsla(217, 89%, 61%, 1);
   transition: opacity .3s ease;
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  background-color: transparent;
 }
 
 .page-not-found__link:hover {
