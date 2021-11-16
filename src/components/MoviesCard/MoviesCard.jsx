@@ -30,12 +30,7 @@ export default function MoviesCard({
   // При монтировании проверяем надо ли лайкать карточку
   React.useEffect(() => {
     console.log('this movie id', movie.id)
-    const checkSave = savedMovies.find((item) => {
-      console.log('movieID', item.movieId)
-      console.log('movie ID', movie.id)
-      console.log('movieID == movie.id? ', +item.movieId === +movie.id)
-      return +item.movieId === +movie.id
-    })
+    const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
     if (checkSave) {
       setIsLiked(true)
     } else {
@@ -44,12 +39,7 @@ export default function MoviesCard({
   }, [])
   React.useEffect(() => {
     // Выставляем лайк
-    const checkSave = savedMovies.find((item) => {
-      console.log('movieID', item.movieId)
-      console.log('movie ID', movie.id)
-      console.log('movieID == movie.id? ', +item.movieId === +movie.id)
-      return +item.movieId === +movie.id
-    })
+    const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
     if (checkSave) {
       setIsLiked(true)
       // Записываем из _id в _id
