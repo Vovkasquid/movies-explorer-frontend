@@ -119,19 +119,31 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
         setIsPreloaderVisible(true)
         // Делаем поиск по savedMovies
         const filteredSavedFilms = filterItems(savedMovies, values.search)
+        const shortSavedFilms = filteredSavedFilms.filter((movie) => movie.duration <= 40)
         // Записываем эти фильтры в стейт отфильтрованного
         setFilterFilmArray(filteredSavedFilms)
         // Заранее записываем в стейт короткометражки
-        setShortFilmsArray(filteredSavedFilms.filter((movie) => movie.duration <= 40))
-        // Записываем фильмы в стейт
-        setMoviesStorage(filteredSavedFilms)
-        if (filteredSavedFilms.length === 0) {
-          setIsNothingFound(true)
-          setIsFinding(false)
+        setShortFilmsArray(shortSavedFilms)
+        // Проверяем на поиск в коротком метре
+        if (isShort) {
+          if (shortSavedFilms.length > 0) {
+            setMoviesStorage(shortSavedFilms)
+          } else {
+            // Если короткометражек нет, то отображаем "не найдено"
+            setIsNothingFound(true)
+            setIsFinding(false)
+          }
         } else {
-          setIsNothingFound(false)
-          // Включаем секцию с фильмами
-          setIsFinding(true)
+          // Записываем фильмы в стейт
+          setMoviesStorage(filteredSavedFilms)
+          if (filteredSavedFilms.length === 0) {
+            setIsNothingFound(true)
+            setIsFinding(false)
+          } else {
+            setIsNothingFound(false)
+            // Включаем секцию с фильмами
+            setIsFinding(true)
+          }
         }
         // Отключаем прелоадер
         setIsPreloaderVisible(false)
