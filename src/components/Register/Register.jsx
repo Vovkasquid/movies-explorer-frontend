@@ -16,8 +16,6 @@ export default function Register({ handleRegister, registerNetworkError }) {
     // На всякий случай проверка на валидность
     if (isValid) {
       handleRegister({ email: values.email, name: values.name, password: values.password })
-    } else {
-      console.log('Register Error')
     }
   }
   return (

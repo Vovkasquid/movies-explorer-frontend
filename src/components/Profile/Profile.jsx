@@ -16,7 +16,6 @@ export default function Profile({ updProfileNetworkError, handleEditProfile, han
     evt.preventDefault()
     if (isValid) {
       handleEditProfile({ name: values.profileName, email: values.profileEmail })
-      console.log('profile submit')
     }
   }
 

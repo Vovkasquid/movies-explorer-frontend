@@ -44,14 +44,12 @@ function App() {
           // проверяем пришли ли данные
           if (userInfo.data.name) {
             // Записываем данные в контекст
-            console.log('userInfo', userInfo.data)
             setCurrentUser(userInfo.data)
             // Записываем стейт авторизации
             setIsAuth(true)
             // Запрашиваем сохранённые фильмы
             getMovies()
               .then((res) => {
-                console.log('Фильмы сохранённые этим юзером, ', res.data)
                 // Сохраняем фильмы в стейт
                 setSavedMovies(res.data)
               })
@@ -85,7 +83,6 @@ function App() {
     setLoginNetworkError('')
     login(email, password)
       .then((loginResponse) => {
-        console.log(loginResponse)
         // Cохраняем в контекст пользователя токен юзера
         localStorage.setItem('token', loginResponse.token)
         // Получаем данные о юзере
@@ -94,7 +91,6 @@ function App() {
             // проверяем пришли ли данные
             if (userInfo.data.name) {
               // Записываем данные в контекст
-              console.log('userInfo', userInfo.data)
               setCurrentUser(userInfo.data)
               // Записываем стейт авторизации
               setIsAuth(true)
@@ -103,7 +99,6 @@ function App() {
             }
           })
           .catch((err) => {
-            console.log('getUserErr =, ', err)
             if (err.status === 401) {
               setLoginNetworkError('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
             } else if (err.status === 'Ошибка: 404') {
@@ -116,7 +111,6 @@ function App() {
           })
       })
       .catch((err) => {
-        console.log(err)
         if (err.status === 401) {
           setLoginNetworkError('Вы ввели неправильный логин или пароль.')
         } else {
@@ -139,7 +133,6 @@ function App() {
         handleLogin({ email, password })
       })
       .catch((err) => {
-        console.log(err)
         if (err.status === 409) {
           setRegisterNetworkError('Пользователь с таким email уже существует.')
         } else {
@@ -183,13 +176,11 @@ function App() {
     // вызываем метод Api для сохранения фильма
     // Если всё норм, вернём название фильма
     saveMovies(movie)
-      .then((savedMovie) => {
-        console.log('anwer like:', savedMovie.data.nameRU)
+      .then(() => {
         // eslint-disable-next-line no-param-reassign
         // Получаем новый массив сохранённых фильмов
         getMovies()
           .then((res) => {
-            console.log('Фильмы сохранённые этим юзером, ', res.data)
             // Сохраняем фильмы в стейт
             setSavedMovies(res.data)
           })
@@ -203,11 +194,9 @@ function App() {
     // Если удаление прошло успешно, то вернём true, чтобы удалить лайк
     deleteSavedMovies(movieId)
       .then(() => {
-        console.log('succes delete')
         // Получаем новый массив сохранённых фильмов
         getMovies()
           .then((res) => {
-            console.log('Фильмы сохранённые этим юзером, ', res.data)
             // Сохраняем фильмы в стейт
             setSavedMovies(res.data)
           })

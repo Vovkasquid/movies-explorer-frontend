@@ -25,12 +25,10 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const [isBtnVisible, setIsBtnVisible] = React.useState(false)
 
   React.useEffect(() => {
-    console.log('EFFFFFFFFFFFFFFFFFFFFFFF PYAT')
     // Если пришли с роута /saved-movies, то надо сразу отрендерить карты без поиска
     // То, что делается при поиске для этого маршрута надо сделать предварительно
     if (isSaved) {
       if (savedMovies.length > 0) {
-        console.log('mount sf in saved-movies')
         setIsFinding(true)
         setMoviesStorage(savedMovies)
         setFilterFilmArray(savedMovies)
@@ -52,7 +50,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     if (isValid) {
       // Разграничиваем поведение сабмита при movies и saved-movies
       if (!isSaved) {
-        console.log('SUBMIT SEARCH')
         setIsError(false)
         setIsNetworkError(false)
         // Блокируем инпут
@@ -61,7 +58,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
         setIsPreloaderVisible(true)
         getMovies()
           .then((movies) => {
-            console.log(movies)
             // Выставляем начальное число рендера карт
             setRenderCounter(cardCount)
             // Отключаем прелоадер
@@ -75,12 +71,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
             setFilterFilmArray(filteredFilms)
             // Заранее записываем в стейт короткометражки
             setShortFilmsArray(shortFilms)
-            console.log('dataLength ', filteredFilms.length)
-            console.log('cardCount ', cardCount)
             // Если короткометражка, то отбразим короткий метр
             if (isShort) {
               if (shortFilms.length > 0) {
-                console.log('короткий метр есть')
                 setMoviesStorage(shortFilms)
                 setIsNothingFound(false)
                 setIsFinding(true)
@@ -89,7 +82,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
                   setIsBtnVisible(true)
                 }
               } else {
-                console.log('korotkuy, ', shortFilms)
                 // Если короткометражек нет, то отображаем "не найдено"
                 setIsNothingFound(true)
                 setIsFinding(false)
@@ -112,10 +104,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
               }
             }
           })
-          .catch((err) => {
+          .catch(() => {
             setIsPreloaderVisible(false)
             setIsNetworkError(true)
-            console.log(err)
             // Разблокируем инпут
             setIsInputDisabled(false)
           })
@@ -163,7 +154,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   }
   // Обработчик для чекбокса
   const onShortFilmsCheckbox = () => {
-    console.log('checkbox click')
     // Переключаем стейт
     setIsShort(!isShort)
   }
@@ -189,15 +179,11 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
       } else {
         setMoviesStorage(filterFilmArray)
         // Включаем кнопку "ещё", если она необходима
-        console.log('сколько осталось, ', filterFilmArray.length - renderCounter)
         if (filterFilmArray.length > renderCounter) {
           setIsBtnVisible(true)
         }
       }
     } else {
-      console.log('Обработчик isShort')
-      console.log('Стейт фильтрованных карточек: ', filterFilmArray)
-      console.log('Стейт короткометражек', shortFilmsArray)
       // Если возвращаемся из короткометражек, то переключить стейты
       if (!isShort && filterFilmArray.length > 0) {
         setIsNothingFound(false)

@@ -24,7 +24,6 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
   React.useEffect(() => {
     // Выполняем эти действия, если сейчас не роут /saved-movies
     if (!isSaved) {
-      console.log('this movie id', movie.id)
       const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
       if (checkSave) {
         setIsLiked(true)
@@ -41,10 +40,8 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
       if (checkSave) {
         setIsLiked(true)
         // Записываем из _id в _id
-        console.log('checkSave, ', checkSave._id)
         aproovedMovie.movieId = checkSave._id
         setIsDeletingMovieId(checkSave._id)
-        console.log('aproovedMovie.movieId, ', aproovedMovie.movieId)
       } else {
         setIsLiked(false)
       }
@@ -57,20 +54,15 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
   }
   const handleLikeClick = async () => {
     // Если роут /saved-movies, то просто удаляем фильм
-    console.log('delete')
     if (isSaved) {
-      console.log('delete in if')
       handleDeleteFilm({ movieId: aproovedMovie.movieId })
     } else if (isLiked) {
       // Проверяем был ли лайкнут фильм
       // Если да, то надо удалить лайк
-      console.log('deleting movieId, ', aproovedMovie.movieId)
       handleDeleteFilm({ movieId: deletingMovieId })
-      // setIsLiked(false)
     } else {
       // Если фильм не лайкнут, то лайкаем
       handleSaveFilm({ movie: aproovedMovie })
-      // setIsLiked(true)
     }
   }
   return (
