@@ -28,10 +28,12 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     // Если пришли с роута /saved-movies, то надо сразу отрендерить карты без поиска
     // То, что делается при поиске для этого маршрута надо сделать предварительно
     if (isSaved) {
-      setIsFinding(true)
-      setMoviesStorage(savedMovies)
-      setFilterFilmArray(savedMovies)
-      setShortFilmsArray(savedMovies.filter((movie) => movie.duration <= 40))
+      if (savedMovies.length > 0) {
+        setIsFinding(true)
+        setMoviesStorage(savedMovies)
+        setFilterFilmArray(savedMovies)
+        setShortFilmsArray(savedMovies.filter((movie) => movie.duration <= 40))
+      }
     }
   }, [])
   // Если изменится сохраннёный массив, то надо перерендерить saved-movies
@@ -207,7 +209,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
       if (isShort) {
         setMoviesStorage(shortFilmsArray)
       } else {
-        setMoviesStorage(savedMovies)
+        setMoviesStorage(filterFilmArray)
       }
     }
   }, [isShort])
