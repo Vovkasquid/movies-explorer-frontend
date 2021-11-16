@@ -66,25 +66,43 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
             setIsInputDisabled(false)
             // Фильтруем фильмы
             const filteredFilms = filterItems(movies, values.search)
+            const shortFilms = filteredFilms.filter((movie) => movie.duration <= 40)
             // Записываем эти фильтры в стейт отфильтрованного
             setFilterFilmArray(filteredFilms)
             // Заранее записываем в стейт короткометражки
-            setShortFilmsArray(filteredFilms.filter((movie) => movie.duration <= 40))
+            setShortFilmsArray(shortFilms)
             // Записываем длину массива с фильмами
             setDataLenght(filteredFilms.length)
             // Выставляем видимость/невидимость кнопки "ещё"
             console.log('dataLength ', filteredFilms.length)
             console.log('cardCount ', cardCount)
-            setIsBtnVisible(filteredFilms.length > cardCount)
-            // Записываем фильмы в стейт
-            setMoviesStorage(filteredFilms)
-            if (filteredFilms.length === 0) {
-              setIsNothingFound(true)
-              setIsFinding(false)
+            // Если короткометражка, то отбразим короткий метр
+
+            if (isShort) {
+              if (shortFilms.length > 0) {
+                setMoviesStorage(shortFilms)
+                // если надо, то скрываем кнопку "ещё"
+                if (shortFilms.length > cardCount) {
+                  setIsBtnVisible(true)
+                }
+              } else {
+                // Если короткометражек нет, то отображаем "не найдено"
+                setIsNothingFound(true)
+                setIsFinding(false)
+              }
             } else {
-              setIsNothingFound(false)
-              // Включаем секцию с фильмами
-              setIsFinding(true)
+              // Если не короткий метр, то записываем полный
+              setIsBtnVisible(filteredFilms.length > cardCount)
+              // Записываем фильмы в стейт
+              setMoviesStorage(filteredFilms)
+              if (filteredFilms.length === 0) {
+                setIsNothingFound(true)
+                setIsFinding(false)
+              } else {
+                setIsNothingFound(false)
+                // Включаем секцию с фильмами
+                setIsFinding(true)
+              }
             }
           })
           .catch((err) => {
