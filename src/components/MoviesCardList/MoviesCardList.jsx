@@ -13,7 +13,6 @@ export default function MoviesCardList({
   setIsBtnVisible,
   handleDeleteFilm,
   handleSaveFilm,
-  movieBase,
   savedMovies,
 }) {
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
@@ -48,7 +47,6 @@ export default function MoviesCardList({
                   trailerLink={movie.trailerLink}
                   handleDeleteFilm={handleDeleteFilm}
                   handleSaveFilm={handleSaveFilm}
-                  movieBase={movieBase}
                   savedMovies={savedMovies}
                 />
               </li>
@@ -56,8 +54,8 @@ export default function MoviesCardList({
         </ul>
       ) : (
         <ul className="movies-card-list__list">
-          {renderArray &&
-            renderArray.map((movie) => (
+          {savedMovies &&
+            savedMovies.map((movie) => (
               <li key={movie.id}>
                 <MovieCard movie={movie} handleDeleteFilm={handleDeleteFilm} isSaved={isSaved} />
               </li>

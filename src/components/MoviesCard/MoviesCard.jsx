@@ -4,15 +4,7 @@
 import React from 'react'
 import './MoviesCard.css'
 
-export default function MoviesCard({
-  movie,
-  filmDuration,
-  isSaved,
-  handleDeleteFilm,
-  handleSaveFilm,
-  movieBase,
-  savedMovies,
-}) {
+export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteFilm, handleSaveFilm, savedMovies }) {
   const aproovedMovie = {
     country: movie.country || 'Нет данных',
     director: movie.director || 'Нет данных',
@@ -61,7 +53,6 @@ export default function MoviesCard({
     // Проверяем был ли лайкнут фильм
     if (isLiked) {
       // Если да, то надо удалить лайк
-      console.log('state with id ', movieBase)
       console.log('deleting movieId, ', aproovedMovie.movieId)
       handleDeleteFilm({ movieId: deletingMovieId })
       // setIsLiked(false)

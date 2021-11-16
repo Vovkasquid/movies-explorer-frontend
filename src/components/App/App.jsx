@@ -28,7 +28,6 @@ function App() {
   const [loginNetworkError, setLoginNetworkError] = React.useState('')
   const [updProfileNetworkError, setUpdProfileNetworkError] = React.useState('')
   const [savedMovies, setSavedMovies] = React.useState('')
-  const [movieBase, setMovieBase] = React.useState({})
   // const [savedMovies, setSavedMovies] = React.useState('')
   const [isAuth, setIsAuth] = React.useState('')
   // const [isAuth, setIsAuth] = React.useState(false)
@@ -187,8 +186,6 @@ function App() {
       .then((savedMovie) => {
         console.log('anwer like:', savedMovie.data.nameRU)
         // eslint-disable-next-line no-param-reassign
-        // Сохраняем ответ в стейт, чтобы каждый раз не запрашивать список всех фильмов
-        setMovieBase(savedMovies.data)
         // Получаем новый массив сохранённых фильмов
         getMovies()
           .then((res) => {
@@ -231,7 +228,6 @@ function App() {
                 handleSaveFilm={handleSaveFilm}
                 handleDeleteFilm={handleDeleteFilm}
                 savedMovies={savedMovies}
-                movieBase={movieBase}
               />
             </Route>
             <Route path="/saved-movies">
