@@ -29,6 +29,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     // То, что делается при поиске для этого маршрута надо сделать предварительно
     if (isSaved) {
       if (savedMovies.length > 0) {
+        console.log('mount sf in saved-movies')
         setIsFinding(true)
         setMoviesStorage(savedMovies)
         setFilterFilmArray(savedMovies)
@@ -195,7 +196,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     } else {
       console.log('Обработчик isShort')
       console.log('Стейт фильтрованных карточек: ', filterFilmArray)
-      console.log('Стейт короткометражек', filterFilmArray)
+      console.log('Стейт короткометражек', shortFilmsArray)
       // Если возвращаемся из короткометражек, то переключить стейты
       if (!isShort && filterFilmArray.length > 0) {
         setIsNothingFound(false)
@@ -208,8 +209,10 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
       }
       if (isShort) {
         setMoviesStorage(shortFilmsArray)
-      } else {
+      } else if (filterFilmArray.length > 0) {
         setMoviesStorage(filterFilmArray)
+      } else {
+        setMoviesStorage(savedMovies)
       }
     }
   }, [isShort])
