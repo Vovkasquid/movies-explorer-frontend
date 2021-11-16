@@ -71,27 +71,30 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
             setFilterFilmArray(filteredFilms)
             // Заранее записываем в стейт короткометражки
             setShortFilmsArray(shortFilms)
-            // Записываем длину массива с фильмами
-            setDataLenght(filteredFilms.length)
-            // Выставляем видимость/невидимость кнопки "ещё"
             console.log('dataLength ', filteredFilms.length)
             console.log('cardCount ', cardCount)
             // Если короткометражка, то отбразим короткий метр
-
             if (isShort) {
               if (shortFilms.length > 0) {
+                console.log('короткий метр есть')
                 setMoviesStorage(shortFilms)
+                setIsNothingFound(false)
+                setIsFinding(true)
                 // если надо, то скрываем кнопку "ещё"
                 if (shortFilms.length > cardCount) {
                   setIsBtnVisible(true)
                 }
               } else {
+                console.log('korotkuy, ', shortFilms)
                 // Если короткометражек нет, то отображаем "не найдено"
                 setIsNothingFound(true)
                 setIsFinding(false)
               }
             } else {
               // Если не короткий метр, то записываем полный
+              // Записываем длину массива с фильмами
+              setDataLenght(filteredFilms.length)
+              // выставляем видимость кнопки
               setIsBtnVisible(filteredFilms.length > cardCount)
               // Записываем фильмы в стейт
               setMoviesStorage(filteredFilms)
