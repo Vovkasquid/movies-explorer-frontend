@@ -189,6 +189,14 @@ function App() {
         // eslint-disable-next-line no-param-reassign
         // Сохраняем ответ в стейт, чтобы каждый раз не запрашивать список всех фильмов
         setMovieBase(savedMovies.data)
+        // Получаем новый массив сохранённых фильмов
+        getMovies()
+          .then((res) => {
+            console.log('Фильмы сохранённые этим юзером, ', res.data)
+            // Сохраняем фильмы в стейт
+            setSavedMovies(res.data)
+          })
+          .catch((err) => console.log(err))
       })
       // eslint-disable-next-line prefer-promise-reject-errors
       .catch(() => Promise.reject(false))

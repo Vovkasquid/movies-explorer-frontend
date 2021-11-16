@@ -13,31 +13,6 @@ export default function MoviesCard({
   movieBase,
   savedMovies,
 }) {
-  const [isLiked, setIsLiked] = React.useState(false)
-  // При монтировании проверяем надо ли лайкать карточку
-  React.useEffect(() => {
-    console.log('this movie id', movie.id)
-    // eslint-disable-next-line no-unused-vars
-    const checkSave = savedMovies.find((item) => {
-      console.log('movieID', item.movieId)
-      console.log('movie ID', movie.id)
-      console.log('movieID == movie.id? ', +item.movieId === +movie.id)
-      return +item.movieId === +movie.id
-    })
-    if (checkSave) {
-      setIsLiked(true)
-    } else {
-      setIsLiked(false)
-    }
-
-    /* setIsLiked(
-      savedMovies.find((item) => {
-        console.log(item)
-        return item.movieId === movie.id
-      }),
-    ) */
-  }, [])
-  // Часть фильмов приходит без некоторых полей и их надо заполнить
   const aproovedMovie = {
     country: movie.country || 'Нет данных',
     director: movie.director || 'Нет данных',
@@ -50,8 +25,41 @@ export default function MoviesCard({
     movieId: movie.id,
     nameRU: movie.nameRU || 'Нет данных',
     nameEN: movie.nameEN || 'Нет данных',
-    _id: movieBase?.nameRU === movie.nameRU ? movieBase._id : 0,
   }
+  const [isLiked, setIsLiked] = React.useState(false)
+  // При монтировании проверяем надо ли лайкать карточку
+  React.useEffect(() => {
+    console.log('this movie id', movie.id)
+    const checkSave = savedMovies.find((item) => {
+      console.log('movieID', item.movieId)
+      console.log('movie ID', movie.id)
+      console.log('movieID == movie.id? ', +item.movieId === +movie.id)
+      return +item.movieId === +movie.id
+    })
+    if (checkSave) {
+      setIsLiked(true)
+    } else {
+      setIsLiked(false)
+    }
+  }, [])
+  React.useEffect(() => {
+    // Выставляем лайк
+    const checkSave = savedMovies.find((item) => {
+      console.log('movieID', item.movieId)
+      console.log('movie ID', movie.id)
+      console.log('movieID == movie.id? ', +item.movieId === +movie.id)
+      return +item.movieId === +movie.id
+    })
+    if (checkSave) {
+      setIsLiked(true)
+      // Записываем из _id в _id
+      aproovedMovie.movieId = checkSave._id
+    } else {
+      setIsLiked(false)
+    }
+  }, [savedMovies])
+  // Часть фильмов приходит без некоторых полей и их надо заполнить
+
   const handleOpenTrailer = () => {
     window.open(`${aproovedMovie.trailer}`, `Трейлер фильма "${aproovedMovie.nameRU}"`)
   }
@@ -61,11 +69,11 @@ export default function MoviesCard({
       // Если да, то надо удалить лайк
       console.log('state with id ', movieBase)
       handleDeleteFilm({ movieId: aproovedMovie._id })
-      setIsLiked(false)
+      // setIsLiked(false)
     } else {
       // Если фильм не лайкнут, то лайкаем
       handleSaveFilm({ movie: aproovedMovie })
-      setIsLiked(true)
+      // setIsLiked(true)
     }
   }
   return (
