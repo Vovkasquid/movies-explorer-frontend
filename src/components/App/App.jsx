@@ -231,7 +231,12 @@ function App() {
               />
             </Route>
             <Route path="/saved-movies">
-              <SavedMovies cardCount={cardCount} isAuth={isAuth} savedMovies={savedMovies} />
+              <SavedMovies
+                cardCount={cardCount}
+                isAuth={isAuth}
+                handleDeleteFilm={handleDeleteFilm}
+                savedMovies={savedMovies}
+              />
             </Route>
             <Route path="/profile">
               <Profile

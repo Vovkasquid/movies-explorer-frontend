@@ -11,10 +11,10 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
     duration: movie.duration || 0,
     year: movie.year || 'Нет данных',
     description: movie.description || ' ',
-    image: `https://api.nomoreparties.co${movie.image.url}`,
-    trailer: movie.trailerLink,
-    thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-    movieId: movie.id,
+    image: isSaved ? movie.image : `https://api.nomoreparties.co${movie.image.url}`,
+    trailer: isSaved ? movie.trailer : movie.trailerLink,
+    thumbnail: isSaved ? movie.thumbnail : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+    movieId: isSaved ? movie._id : movie.id,
     nameRU: movie.nameRU || 'Нет данных',
     nameEN: movie.nameEN || 'Нет данных',
   }
@@ -22,26 +22,32 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
   const [deletingMovieId, setIsDeletingMovieId] = React.useState('0')
   // При монтировании проверяем надо ли лайкать карточку
   React.useEffect(() => {
-    console.log('this movie id', movie.id)
-    const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
-    if (checkSave) {
-      setIsLiked(true)
-    } else {
-      setIsLiked(false)
+    // Выполняем эти действия, если сейчас не роут /saved-movies
+    if (!isSaved) {
+      console.log('this movie id', movie.id)
+      const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
+      if (checkSave) {
+        setIsLiked(true)
+      } else {
+        setIsLiked(false)
+      }
     }
   }, [])
   React.useEffect(() => {
-    // Выставляем лайк
-    const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
-    if (checkSave) {
-      setIsLiked(true)
-      // Записываем из _id в _id
-      console.log('checkSave, ', checkSave._id)
-      aproovedMovie.movieId = checkSave._id
-      setIsDeletingMovieId(checkSave._id)
-      console.log('aproovedMovie.movieId, ', aproovedMovie.movieId)
-    } else {
-      setIsLiked(false)
+    // Выполняем эти действия, если сейчас не роут /saved-movies
+    if (!isSaved) {
+      // Выставляем лайк
+      const checkSave = savedMovies.find((item) => +item.movieId === +movie.id)
+      if (checkSave) {
+        setIsLiked(true)
+        // Записываем из _id в _id
+        console.log('checkSave, ', checkSave._id)
+        aproovedMovie.movieId = checkSave._id
+        setIsDeletingMovieId(checkSave._id)
+        console.log('aproovedMovie.movieId, ', aproovedMovie.movieId)
+      } else {
+        setIsLiked(false)
+      }
     }
   }, [savedMovies])
   // Часть фильмов приходит без некоторых полей и их надо заполнить

@@ -15,6 +15,9 @@ export default function MoviesCardList({
   handleSaveFilm,
   savedMovies,
 }) {
+  React.useEffect(() => {
+    console.log('saved movies = ', savedMovies)
+  }, [])
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   // renderCounter - сколько мы отрежем от общего массива с фильмами
   // если вкладка "сохранённые фильмы, то надо отрендерить все фильмы сразу"
@@ -40,11 +43,8 @@ export default function MoviesCardList({
               <li key={movie.id}>
                 <MovieCard
                   movie={movie}
-                  filmName={movie.nameRU}
                   filmDuration={filmDuration(movie)}
-                  filmPicture={`https://api.nomoreparties.co${movie.image.url}`}
                   isSaved={isSaved}
-                  trailerLink={movie.trailerLink}
                   handleDeleteFilm={handleDeleteFilm}
                   handleSaveFilm={handleSaveFilm}
                   savedMovies={savedMovies}
@@ -57,7 +57,12 @@ export default function MoviesCardList({
           {savedMovies &&
             savedMovies.map((movie) => (
               <li key={movie.id}>
-                <MovieCard movie={movie} handleDeleteFilm={handleDeleteFilm} isSaved={isSaved} />
+                <MovieCard
+                  movie={movie}
+                  handleDeleteFilm={handleDeleteFilm}
+                  isSaved={isSaved}
+                  filmDuration={filmDuration(movie)}
+                />
               </li>
             ))}
         </ul>

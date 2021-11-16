@@ -23,6 +23,13 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const [isInputDisabled, setIsInputDisabled] = React.useState(false)
   // стейт для кнопки из MoviesCardList
   const [isBtnVisible, setIsBtnVisible] = React.useState(false)
+
+  React.useEffect(() => {
+    // Если пришли с роута /saved-movies, то надо сразу отрендерить карты без поиска
+    if (isSaved) {
+      setIsFinding(true)
+    }
+  }, [])
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
