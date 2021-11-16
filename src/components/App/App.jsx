@@ -18,6 +18,7 @@ import {
   deleteSavedMovies,
   getMovies,
 } from '../../utils/api/MainApi'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function App() {
   const history = useHistory()
@@ -28,9 +29,7 @@ function App() {
   const [loginNetworkError, setLoginNetworkError] = React.useState('')
   const [updProfileNetworkError, setUpdProfileNetworkError] = React.useState('')
   const [savedMovies, setSavedMovies] = React.useState('')
-  // const [savedMovies, setSavedMovies] = React.useState('')
-  const [isAuth, setIsAuth] = React.useState('')
-  // const [isAuth, setIsAuth] = React.useState(false)
+  const [isAuth, setIsAuth] = React.useState(false)
   const handleResize = () => {
     // Записываем сайт в стейт
     setScreenWidth(window.innerWidth)
@@ -221,38 +220,41 @@ function App() {
       <div className="App">
         <div className="page">
           <Switch>
-            <Route path="/movies">
-              <Movies
-                cardCount={cardCount}
-                isAuth={isAuth}
-                handleSaveFilm={handleSaveFilm}
-                handleDeleteFilm={handleDeleteFilm}
-                savedMovies={savedMovies}
-              />
-            </Route>
-            <Route path="/saved-movies">
-              <SavedMovies
-                cardCount={cardCount}
-                isAuth={isAuth}
-                handleDeleteFilm={handleDeleteFilm}
-                savedMovies={savedMovies}
-              />
-            </Route>
-            <Route path="/profile">
-              <Profile
-                updProfileNetworkError={updProfileNetworkError}
-                handleEditProfile={handleEditProfile}
-                handleExitAccount={handleExitAccount}
-                isAuth={isAuth}
-              />
-            </Route>
+            <ProtectedRoute
+              exact
+              path="/movies"
+              component={Movies}
+              cardCount={cardCount}
+              isAuth={isAuth}
+              handleSaveFilm={handleSaveFilm}
+              handleDeleteFilm={handleDeleteFilm}
+              savedMovies={savedMovies}
+            />
+            <ProtectedRoute
+              exact
+              path="/saved-movies"
+              component={SavedMovies}
+              cardCount={cardCount}
+              isAuth={isAuth}
+              handleDeleteFilm={handleDeleteFilm}
+              savedMovies={savedMovies}
+            />
+            <ProtectedRoute
+              exact
+              path="/profile"
+              component={Profile}
+              updProfileNetworkError={updProfileNetworkError}
+              handleEditProfile={handleEditProfile}
+              handleExitAccount={handleExitAccount}
+              isAuth={isAuth}
+            />
             <Route path="/signup">
               <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
             </Route>
             <Route path="/signin">
               <Login handleLogin={handleLogin} loginNetworkError={loginNetworkError} />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <Main isAuth={isAuth} />
             </Route>
             <Route path="/*">
