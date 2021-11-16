@@ -26,9 +26,12 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
 
   React.useEffect(() => {
     // Если пришли с роута /saved-movies, то надо сразу отрендерить карты без поиска
+    // То, что делается при поиске для этого маршрута надо сделать предварительно
     if (isSaved) {
       setIsFinding(true)
       setMoviesStorage(savedMovies)
+      setFilterFilmArray(savedMovies)
+      setShortFilmsArray(savedMovies.filter((movie) => movie.duration <= 40))
     }
   }, [])
   // Если изменится сохраннёный массив, то надо перерендерить saved-movies
@@ -98,7 +101,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
         setIsPreloaderVisible(true)
         // Делаем поиск по savedMovies
         const filteredSavedFilms = filterItems(savedMovies, values.search)
-        setFilterFilmArray(filteredSavedFilms)
         // Записываем эти фильтры в стейт отфильтрованного
         setFilterFilmArray(filteredSavedFilms)
         // Заранее записываем в стейт короткометражки
@@ -154,6 +156,25 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
         if (filterFilmArray.length > renderCounter) {
           setIsBtnVisible(true)
         }
+      }
+    } else {
+      console.log('Обработчик isShort')
+      console.log('Стейт фильтрованных карточек: ', filterFilmArray)
+      console.log('Стейт короткометражек', filterFilmArray)
+      // Если возвращаемся из короткометражек, то переключить стейты
+      if (!isShort && filterFilmArray.length > 0) {
+        setIsNothingFound(false)
+        setIsFinding(true)
+      }
+      // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
+      if (isShort && shortFilmsArray.length === 0) {
+        setIsNothingFound(true)
+        setIsFinding(false)
+      }
+      if (isShort) {
+        setMoviesStorage(shortFilmsArray)
+      } else {
+        setMoviesStorage(savedMovies)
       }
     }
   }, [isShort])
