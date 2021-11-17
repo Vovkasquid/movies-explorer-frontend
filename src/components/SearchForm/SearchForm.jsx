@@ -10,7 +10,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     search: '',
   })
   const [isError, setIsError] = React.useState(false)
-  const [isFinding, setIsFinding] = React.useState(!!isSaved)
+  const [isFinding, setIsFinding] = React.useState(false)
   const [renderCounter, setRenderCounter] = React.useState(cardCount)
   const [dataLength, setDataLenght] = React.useState(0)
   const [moviesStorage, setMoviesStorage] = React.useState([])
@@ -25,11 +25,10 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const [isBtnVisible, setIsBtnVisible] = React.useState(false)
 
   React.useEffect(() => {
-    // Если пришли с роута /saved-movies, то надо сразу отрендерить карты без поиска
+    // Если пришли с роута /saved-movies, то надо сразу сделать несколько действий
     // То, что делается при поиске для этого маршрута надо сделать предварительно
     if (isSaved) {
       if (savedMovies.length > 0) {
-        setIsFinding(true)
         setMoviesStorage(savedMovies)
         setFilterFilmArray(savedMovies)
         setShortFilmsArray(savedMovies.filter((movie) => movie.duration <= 40))
