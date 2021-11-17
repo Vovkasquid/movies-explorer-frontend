@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3002'
+const baseUrl = 'http://api.moviesquid.nomoredomains.monster'
 
  // Метод для проверки ответа
  function checkResponse(res) {
