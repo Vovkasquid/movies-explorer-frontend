@@ -63,7 +63,10 @@ function App() {
         })
     }
   }
-
+  // Получаем данные пользователя при монтировании компонента
+  React.useEffect(() => {
+    tokenCheck()
+  }, [])
   React.useEffect(() => {
     // Вешаем слушатель на ресайз
     window.addEventListener('resize', () =>
@@ -76,11 +79,6 @@ function App() {
   React.useEffect(() => {
     setCardCount(window.innerWidth > 500 ? 7 : 5)
   }, [screenWidth])
-
-  // Получаем данные пользователя при монтировании компонента
-  React.useEffect(() => {
-    tokenCheck()
-  }, [])
 
   const handleLogin = ({ email, password }) => {
     // Обнуляем ошибку логина
@@ -98,7 +96,14 @@ function App() {
               setCurrentUser(userInfo.data)
               // Записываем стейт авторизации
               setIsAuth(true)
-              // Редиректим юзера на movies
+              // Запрашиваем сохранённые фильмы
+              getMovies()
+                .then((res) => {
+                  // Сохраняем фильмы в стейт
+                  setSavedMovies(res.data)
+                })
+                .catch((err) => console.log(err))
+              // Отправляем в фильмы
               history.push('/movies')
             }
           })
