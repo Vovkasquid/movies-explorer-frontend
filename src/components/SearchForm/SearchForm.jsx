@@ -125,6 +125,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
         if (isShort) {
           if (shortSavedFilms.length > 0) {
             setMoviesStorage(shortSavedFilms)
+            setIsFinding(true)
           } else {
             // Если короткометражек нет, то отображаем "не найдено"
             setIsNothingFound(true)
