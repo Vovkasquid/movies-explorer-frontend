@@ -56,7 +56,11 @@ function App() {
               .catch((err) => console.log(err))
           }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          // Удаляем токен, если он не валидный
+          localStorage.clear()
+          return console.log(err)
+        })
     }
   }
 
