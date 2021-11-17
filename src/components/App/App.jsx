@@ -48,19 +48,16 @@ function App() {
             // Записываем стейт авторизации
             setIsAuth(true)
             // Запрашиваем сохранённые фильмы
-            getMovies()
-              .then((res) => {
-                // Сохраняем фильмы в стейт
-                setSavedMovies(res.data)
-              })
-              .catch((err) => console.log(err))
+            const savedFilms = localStorage.getItem('films').json()
+            setSavedMovies(savedFilms)
           }
         })
-        .catch((err) => {
+        .catch((err) =>
           // Удаляем токен, если он не валидный
-          localStorage.clear()
-          return console.log(err)
-        })
+          // Да и фильмы туда же
+          // localStorage.clear()
+          console.log(err),
+        )
     }
   }
   // Получаем данные пользователя при монтировании компонента
@@ -101,6 +98,8 @@ function App() {
                 .then((res) => {
                   // Сохраняем фильмы в стейт
                   setSavedMovies(res.data)
+                  // Сохраняем фильмы в стейт
+                  localStorage.setItem('films', JSON.stringify(res.data))
                 })
                 .catch((err) => console.log(err))
               // Отправляем в фильмы
@@ -192,6 +191,8 @@ function App() {
           .then((res) => {
             // Сохраняем фильмы в стейт
             setSavedMovies(res.data)
+            // Сохраняем фильмы в стейт
+            localStorage.setItem('films', JSON.stringify(res.data))
           })
           .catch((err) => console.log(err))
       })
@@ -207,6 +208,8 @@ function App() {
           .then((res) => {
             // Сохраняем фильмы в стейт
             setSavedMovies(res.data)
+            // Сохраняем фильмы в стейт
+            localStorage.setItem('films', JSON.stringify(res.data))
           })
           .catch((err) => console.log(err))
       })
