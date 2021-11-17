@@ -186,8 +186,7 @@ function App() {
           })
           .catch((err) => console.log(err))
       })
-      // eslint-disable-next-line prefer-promise-reject-errors
-      .catch(() => Promise.reject(false))
+      .catch((err) => console.log(err))
   }
 
   const handleDeleteFilm = ({ movieId }) => {
@@ -202,7 +201,6 @@ function App() {
           })
           .catch((err) => console.log(err))
       })
-      // eslint-disable-next-line prefer-promise-reject-errors
       .catch((err) => console.log(err))
   }
   return (

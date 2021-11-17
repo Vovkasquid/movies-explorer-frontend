@@ -12,7 +12,7 @@ export default function MoviesCard({ movie, filmDuration, isSaved, handleDeleteF
     year: movie.year || 'Нет данных',
     description: movie.description || ' ',
     image: isSaved ? movie.image : `https://api.nomoreparties.co${movie.image.url}`,
-    trailer: isSaved ? movie.trailer : movie.trailerLink,
+    trailer: isSaved ? movie.trailer : movie.trailerLink || 'https://youtube.com',
     thumbnail: isSaved ? movie.thumbnail : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
     movieId: isSaved ? movie._id : movie.id,
     nameRU: movie.nameRU || 'Нет данных',
