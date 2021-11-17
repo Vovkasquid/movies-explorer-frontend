@@ -48,16 +48,16 @@ function App() {
             // Записываем стейт авторизации
             setIsAuth(true)
             // Запрашиваем сохранённые фильмы
-            const savedFilms = localStorage.getItem('films').json()
+            const savedFilms = JSON.parse(localStorage.getItem('films'))
             setSavedMovies(savedFilms)
           }
         })
-        .catch((err) =>
+        .catch((err) => {
           // Удаляем токен, если он не валидный
           // Да и фильмы туда же
-          // localStorage.clear()
-          console.log(err),
-        )
+          localStorage.clear()
+          return console.log(err)
+        })
     }
   }
   // Получаем данные пользователя при монтировании компонента
