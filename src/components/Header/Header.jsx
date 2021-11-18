@@ -2,7 +2,6 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import './Header.css'
-import headerLogo from '../../images/logo.svg'
 import profileIcon from '../../images/profile_icon.svg'
 
 export default function Header({ isAuth }) {
@@ -15,7 +14,7 @@ export default function Header({ isAuth }) {
   }
   return (
     <header className="header">
-      <img src={headerLogo} alt="Логотип проекта" className="header__logo" />
+      <Link to="/" className="header__logo" />
       {isAuth && (
         <nav className="header__navigation">
           <NavLink
