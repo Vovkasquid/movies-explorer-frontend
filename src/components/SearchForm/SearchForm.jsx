@@ -30,15 +30,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     const lastSearchShortMovies = JSON.parse(localStorage.getItem('moviesShortFilms'))
     const lastSavedSearchMovies = JSON.parse(localStorage.getItem('moviesSavedLongFilms'))
     const lastSavedSearchShortMovies = JSON.parse(localStorage.getItem('moviesSavedShortFilms'))
-    console.log('lastSearchMovies', lastSearchMovies)
-    console.log('lastSearchShortMovies ', lastSearchShortMovies)
-    console.log('lastSavedSearchMovies ', lastSavedSearchMovies)
-    console.log('lastSavedSearchShortMovies', lastSavedSearchShortMovies)
-    console.log('saved mov= ', savedMovies)
     // Выставляем разный массив на рендер, в зависимости от страницы
     if (isSaved) {
       if (lastSavedSearchMovies?.length > 0) {
-        console.log('ВЫСТАВЛЯЕМ')
         setMoviesStorage(lastSavedSearchMovies)
         setFilterFilmArray(lastSavedSearchMovies)
         setShortFilmsArray(lastSavedSearchShortMovies)
@@ -63,8 +57,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   // Если изменится сохраннёный массив, то надо перерендерить saved-movies
   React.useEffect(() => {
     if (isSaved && !isPreviousSearch) {
-      console.log('savedMovies', savedMovies)
-      console.log('isF ', isFinding)
       setMoviesStorage(savedMovies)
     }
   }, [savedMovies])
