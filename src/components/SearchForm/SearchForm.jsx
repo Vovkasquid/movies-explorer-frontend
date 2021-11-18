@@ -51,6 +51,8 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
       setShortFilmsArray(lastSearchShortMovies)
       // включаем секцию с карточками
       setIsFinding(true)
+      setRenderCounter(cardCount)
+      setDataLenght(lastSearchMovies.length)
       // выставляем кнопку
       if (lastSearchMovies.length > cardCount) {
         setIsBtnVisible(true)
