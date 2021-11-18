@@ -23,6 +23,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const [isInputDisabled, setIsInputDisabled] = React.useState(false)
   // стейт для кнопки из MoviesCardList
   const [isBtnVisible, setIsBtnVisible] = React.useState(false)
+  const [isPreviousSearch, setIsPreviousSearch] = React.useState(true)
 
   React.useEffect(() => {
     const lastSearchMovies = JSON.parse(localStorage.getItem('moviesLongFilms'))
@@ -37,6 +38,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
     // Выставляем разный массив на рендер, в зависимости от страницы
     if (isSaved) {
       if (lastSavedSearchMovies?.length > 0) {
+        console.log('ВЫСТАВЛЯЕМ')
         setMoviesStorage(lastSavedSearchMovies)
         setFilterFilmArray(lastSavedSearchMovies)
         setShortFilmsArray(lastSavedSearchShortMovies)
@@ -45,7 +47,6 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
       }
     } else if (lastSearchMovies?.length > 0) {
       // Если пришли от movies, то надо отобразить фильмы + показывать/не показывать кнопку "Ещё"
-      console.log('add ar = ', lastSearchMovies)
       setMoviesStorage(lastSearchMovies)
       setFilterFilmArray(lastSearchMovies)
       setShortFilmsArray(lastSearchShortMovies)
@@ -61,7 +62,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   }, [])
   // Если изменится сохраннёный массив, то надо перерендерить saved-movies
   React.useEffect(() => {
-    if (isSaved) {
+    if (isSaved && !isPreviousSearch) {
+      console.log('savedMovies', savedMovies)
+      console.log('isF ', isFinding)
       setMoviesStorage(savedMovies)
     }
   }, [savedMovies])
@@ -72,6 +75,10 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const onSubmitForm = (evt) => {
     evt.preventDefault()
     if (isValid) {
+      // Больше не надо показывать предыдущий поиск. Выключаем его
+      setIsPreviousSearch(false)
+      // Отключаем карточки имеющиеся
+      setIsFinding(false)
       // Разграничиваем поведение сабмита при movies и saved-movies
       if (!isSaved) {
         setIsError(false)
@@ -211,12 +218,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
           }
           // В этом месте перезаписывается массив на пустой в movies когда возвращаемся снаружи
         } else {
-          console.log('LOMAEM')
           setMoviesStorage(filterFilmArray)
           // Включаем кнопку "ещё", если она необходима
           if (filterFilmArray.length > renderCounter) {
-            console.log('KNOPKA')
-            console.log(filterFilmArray.length)
             setIsBtnVisible(true)
           }
         }
