@@ -104,7 +104,7 @@ export default function Profile({
           <div className="profile__button-container">
             {errors.profileName && <span className="profile__error-field">{errors.profileName}</span>}
             {errors.profileEmail && <span className="profile__error-field">{errors.profileEmail}</span>}
-            {isSuccessSubmit && <span className="profile__error-field">Ваши данные успешно изменены</span>}
+            {isSuccessSubmit && <span className="profile__success-field">Ваши данные успешно изменены</span>}
             {updProfileNetworkError && <span className="profile__error-field">{updProfileNetworkError}</span>}
             <button type="submit" className="profile__button" disabled={!isValid || !isUpdate}>
               Редактировать
