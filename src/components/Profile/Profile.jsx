@@ -26,17 +26,11 @@ export default function Profile({
   })
 
   React.useEffect(() => {
-    console.log('name', nameRef.current.value)
-    console.log('email', emailRef.current.value)
     if (nameRef.current.value === currentUser.name && emailRef.current.value === currentUser.email) {
       setIsUpdate(false)
-      console.log('Старьё')
     } else {
       setIsUpdate(true)
-      console.log('Новьё')
     }
-    console.log('статус стейт isUpdate = ', isUpdate)
-    console.log('isValid =', isValid)
   }, [nameRef.current.value, emailRef.current.value, currentUser.name, currentUser.email])
 
   function onFormSumbit(evt) {
