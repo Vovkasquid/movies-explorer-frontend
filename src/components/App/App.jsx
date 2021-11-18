@@ -36,11 +36,13 @@ function App() {
     setScreenWidth(window.innerWidth)
   }
 
+  const filterUserSavedFilms = (savedFilms, userId) => savedFilms.filter((film) => film.owner === userId)
   const tokenCheck = () => {
     const token = localStorage.getItem('token')
     if (token) {
       getUserInformation()
         .then((userInfo) => {
+          console.log(userInfo.data)
           // проверяем пришли ли данные
           if (userInfo.data.name) {
             // Записываем данные в контекст
@@ -48,7 +50,10 @@ function App() {
             // Записываем стейт авторизации
             setIsAuth(true)
             // Запрашиваем сохранённые фильмы
+            // Они должны быть уже отфильтрованные в хранилище
             const savedFilms = JSON.parse(localStorage.getItem('films'))
+            console.log(savedFilms)
+            console.log(localStorage.getItem('token'))
             setSavedMovies(savedFilms)
           }
         })
@@ -94,12 +99,19 @@ function App() {
               // Записываем стейт авторизации
               setIsAuth(true)
               // Запрашиваем сохранённые фильмы
+              const curUserID = userInfo.data._id
               getMovies()
                 .then((res) => {
+                  const serverFilms = res.data
+                  // Нужно отфильтровать свои фильмы
+                  const userSavedFilms = filterUserSavedFilms(serverFilms, curUserID)
+                  console.log('AUTH')
+                  console.log('curusID ', curUserID)
+                  console.log('after filter films, ', userSavedFilms)
                   // Сохраняем фильмы в стейт
-                  setSavedMovies(res.data)
+                  setSavedMovies(userSavedFilms)
                   // Сохраняем фильмы в стейт
-                  localStorage.setItem('films', JSON.stringify(res.data))
+                  localStorage.setItem('films', JSON.stringify(userSavedFilms))
                 })
                 .catch((err) => console.log(err))
               // Отправляем в фильмы
@@ -189,10 +201,15 @@ function App() {
         // Получаем новый массив сохранённых фильмов
         getMovies()
           .then((res) => {
+            const serverFilms = res.data
+            // Нужно отфильтровать свои фильмы
+            const userSavedFilms = filterUserSavedFilms(serverFilms, currentUser._id)
+            console.log('curusID ', currentUser._id)
+            console.log('after films, ', userSavedFilms)
             // Сохраняем фильмы в стейт
-            setSavedMovies(res.data)
+            setSavedMovies(userSavedFilms)
             // Сохраняем фильмы в стейт
-            localStorage.setItem('films', JSON.stringify(res.data))
+            localStorage.setItem('films', JSON.stringify(userSavedFilms))
           })
           .catch((err) => console.log(err))
       })
@@ -206,10 +223,15 @@ function App() {
         // Получаем новый массив сохранённых фильмов
         getMovies()
           .then((res) => {
+            const serverFilms = res.data
+            // Нужно отфильтровать свои фильмы
+            const userSavedFilms = filterUserSavedFilms(serverFilms, currentUser._id)
+            console.log('curusID ', currentUser._id)
+            console.log('after films, ', userSavedFilms)
             // Сохраняем фильмы в стейт
-            setSavedMovies(res.data)
+            setSavedMovies(userSavedFilms)
             // Сохраняем фильмы в стейт
-            localStorage.setItem('films', JSON.stringify(res.data))
+            localStorage.setItem('films', JSON.stringify(userSavedFilms))
           })
           .catch((err) => console.log(err))
       })
