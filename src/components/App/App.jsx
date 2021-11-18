@@ -31,6 +31,7 @@ function App() {
   const [updProfileNetworkError, setUpdProfileNetworkError] = React.useState('')
   const [savedMovies, setSavedMovies] = React.useState('')
   const [isAuth, setIsAuth] = React.useState(false)
+  const [isSuccessSubmit, setIsSuccessSubmit] = React.useState(false)
   const handleResize = () => {
     // Записываем сайт в стейт
     setScreenWidth(window.innerWidth)
@@ -158,11 +159,15 @@ function App() {
   const handleEditProfile = ({ name, email }) => {
     // Обнуляем ошибки в профиле
     setUpdProfileNetworkError('')
+    // Зануляем сообщения об успехе
+    setIsSuccessSubmit(false)
     // Делаем запрос с обновлением
     editProfile(name, email)
       .then((res) => {
         // Если мы здесь, значит всё ок, обновляем данные пользователя в контексте
         setCurrentUser(res.data)
+        // Сообщаем пользователю, что всё хорошо
+        setIsSuccessSubmit(true)
       })
       .catch((err) => {
         if (err.status === 409) {
@@ -259,6 +264,7 @@ function App() {
               handleEditProfile={handleEditProfile}
               handleExitAccount={handleExitAccount}
               isAuth={isAuth}
+              isSuccessSubmit={isSuccessSubmit}
             />
             <Route path="/signup">
               <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
