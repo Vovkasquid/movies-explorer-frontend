@@ -25,14 +25,35 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   const [isBtnVisible, setIsBtnVisible] = React.useState(false)
 
   React.useEffect(() => {
-    // Если пришли с роута /saved-movies, то надо сразу сделать несколько действий
-    // То, что делается при поиске для этого маршрута надо сделать предварительно
-    // а так же, если был уже поиск, то выставить фильмы (даже если с роута /movies пришли)
+    const lastSearchMovies = JSON.parse(localStorage.getItem('moviesLongFilms'))
+    const lastSearchShortMovies = JSON.parse(localStorage.getItem('moviesShortFilms'))
+    const lastSavedSearchMovies = JSON.parse(localStorage.getItem('moviesSavedLongFilms'))
+    const lastSavedSearchShortMovies = JSON.parse(localStorage.getItem('moviesSavedShortFilms'))
+    console.log('lastSearchMovies', lastSearchMovies)
+    console.log('lastSearchShortMovies ', lastSearchShortMovies)
+    console.log('lastSavedSearchMovies ', lastSavedSearchMovies)
+    console.log('lastSavedSearchShortMovies', lastSavedSearchShortMovies)
+    console.log('saved mov= ', savedMovies)
+    // Выставляем разный массив на рендер, в зависимости от страницы
     if (isSaved) {
-      if (savedMovies.length > 0) {
-        setMoviesStorage(savedMovies)
-        setFilterFilmArray(savedMovies)
-        setShortFilmsArray(savedMovies.filter((movie) => movie.duration <= 40))
+      if (lastSavedSearchMovies?.length > 0) {
+        setMoviesStorage(lastSavedSearchMovies)
+        setFilterFilmArray(lastSavedSearchMovies)
+        setShortFilmsArray(lastSavedSearchShortMovies)
+        // включаем секцию с карточками
+        setIsFinding(true)
+      }
+    } else if (lastSearchMovies?.length > 0) {
+      // Если пришли от movies, то надо отобразить фильмы + показывать/не показывать кнопку "Ещё"
+      console.log('add ar = ', lastSearchMovies)
+      setMoviesStorage(lastSearchMovies)
+      setFilterFilmArray(lastSearchMovies)
+      setShortFilmsArray(lastSearchShortMovies)
+      // включаем секцию с карточками
+      setIsFinding(true)
+      // выставляем кнопку
+      if (lastSearchMovies.length > cardCount) {
+        setIsBtnVisible(true)
       }
     }
   }, [])
@@ -45,6 +66,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   // Функция фильтрации по имени
   const filterItems = (arr, query) =>
     arr.filter((movie) => movie.nameRU.toLowerCase().indexOf(query.toLowerCase()) !== -1)
+  // Обработчик сабмита поиска
   const onSubmitForm = (evt) => {
     evt.preventDefault()
     if (isValid) {
@@ -166,47 +188,54 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   }
   // При изменении стейта будем менять массив, который идёт на рендер
   React.useEffect(() => {
-    if (!isSaved) {
-      // Если возвращаемся из короткометражек, то переключить стейты
-      if (!isShort && filterFilmArray.length > 0) {
-        setIsNothingFound(false)
-        setIsFinding(true)
-      }
-      // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
-      if (isShort && shortFilmsArray.length === 0) {
-        setIsNothingFound(true)
-        setIsFinding(false)
-      }
-      if (isShort) {
-        setMoviesStorage(shortFilmsArray)
-        // Отключаем кнопку "ещё", если она не нужна в короткометражках
-        if (shortFilmsArray.length <= cardCount) {
-          setIsBtnVisible(false)
+    // Массив будем менять если есть найденные фильмы, иначе это не надо делать
+    if (filterFilmArray.length > 0) {
+      if (!isSaved) {
+        // Если возвращаемся из короткометражек, то переключить стейты
+        if (!isShort && filterFilmArray.length > 0) {
+          setIsNothingFound(false)
+          setIsFinding(true)
+        }
+        // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
+        if (isShort && shortFilmsArray.length === 0) {
+          setIsNothingFound(true)
+          setIsFinding(false)
+        }
+        if (isShort) {
+          setMoviesStorage(shortFilmsArray)
+          // Отключаем кнопку "ещё", если она не нужна в короткометражках
+          if (shortFilmsArray.length <= cardCount) {
+            setIsBtnVisible(false)
+          }
+          // В этом месте перезаписывается массив на пустой в movies когда возвращаемся снаружи
+        } else {
+          console.log('LOMAEM')
+          setMoviesStorage(filterFilmArray)
+          // Включаем кнопку "ещё", если она необходима
+          if (filterFilmArray.length > renderCounter) {
+            console.log('KNOPKA')
+            console.log(filterFilmArray.length)
+            setIsBtnVisible(true)
+          }
         }
       } else {
-        setMoviesStorage(filterFilmArray)
-        // Включаем кнопку "ещё", если она необходима
-        if (filterFilmArray.length > renderCounter) {
-          setIsBtnVisible(true)
+        // Если возвращаемся из короткометражек, то переключить стейты
+        if (!isShort && filterFilmArray.length > 0) {
+          setIsNothingFound(false)
+          setIsFinding(true)
         }
-      }
-    } else {
-      // Если возвращаемся из короткометражек, то переключить стейты
-      if (!isShort && filterFilmArray.length > 0) {
-        setIsNothingFound(false)
-        setIsFinding(true)
-      }
-      // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
-      if (isShort && shortFilmsArray.length === 0) {
-        setIsNothingFound(true)
-        setIsFinding(false)
-      }
-      if (isShort) {
-        setMoviesStorage(shortFilmsArray)
-      } else if (filterFilmArray.length > 0) {
-        setMoviesStorage(filterFilmArray)
-      } else {
-        setMoviesStorage(savedMovies)
+        // Проверяем есть ли фильмы. Если нет - показываем "ничего не найдено"
+        if (isShort && shortFilmsArray.length === 0) {
+          setIsNothingFound(true)
+          setIsFinding(false)
+        }
+        if (isShort) {
+          setMoviesStorage(shortFilmsArray)
+        } else if (filterFilmArray.length > 0) {
+          setMoviesStorage(filterFilmArray)
+        } else {
+          setMoviesStorage(savedMovies)
+        }
       }
     }
   }, [isShort])
@@ -250,7 +279,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
           </label>
         </form>
       </section>
-      {isFinding && (
+      {isFinding && moviesStorage.length > 0 && (
         <MoviesCardList
           isSaved={isSaved}
           movies={moviesStorage}

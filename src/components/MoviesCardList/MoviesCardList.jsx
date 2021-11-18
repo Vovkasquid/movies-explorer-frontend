@@ -16,6 +16,10 @@ export default function MoviesCardList({
   handleSaveFilm,
   savedMovies,
 }) {
+  React.useEffect(() => {
+    console.log('Фильмы на рендер', movies)
+    console.log('renderCounter = ', renderCounter)
+  })
   const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
   // renderCounter - сколько мы отрежем от общего массива с фильмами
   // если вкладка "сохранённые фильмы, то надо отрендерить все фильмы сразу"
