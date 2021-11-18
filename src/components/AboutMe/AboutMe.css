@@ -71,6 +71,11 @@
   line-height: 17px;
   color: hsla(0, 0%, 100%, 1);
   text-decoration: none;
+  transition: opacity .3s ease;
+}
+
+.about-me__info-social-link:hover {
+  opacity: .7;
 }
 
 .about-me__info-description {
