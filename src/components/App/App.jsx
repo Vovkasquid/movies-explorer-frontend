@@ -42,7 +42,6 @@ function App() {
     if (token) {
       getUserInformation()
         .then((userInfo) => {
-          console.log(userInfo.data)
           // проверяем пришли ли данные
           if (userInfo.data.name) {
             // Записываем данные в контекст
@@ -52,8 +51,6 @@ function App() {
             // Запрашиваем сохранённые фильмы
             // Они должны быть уже отфильтрованные в хранилище
             const savedFilms = JSON.parse(localStorage.getItem('films'))
-            console.log(savedFilms)
-            console.log(localStorage.getItem('token'))
             setSavedMovies(savedFilms)
           }
         })
@@ -105,9 +102,6 @@ function App() {
                   const serverFilms = res.data
                   // Нужно отфильтровать свои фильмы
                   const userSavedFilms = filterUserSavedFilms(serverFilms, curUserID)
-                  console.log('AUTH')
-                  console.log('curusID ', curUserID)
-                  console.log('after filter films, ', userSavedFilms)
                   // Сохраняем фильмы в стейт
                   setSavedMovies(userSavedFilms)
                   // Сохраняем фильмы в стейт
@@ -204,8 +198,6 @@ function App() {
             const serverFilms = res.data
             // Нужно отфильтровать свои фильмы
             const userSavedFilms = filterUserSavedFilms(serverFilms, currentUser._id)
-            console.log('curusID ', currentUser._id)
-            console.log('after films, ', userSavedFilms)
             // Сохраняем фильмы в стейт
             setSavedMovies(userSavedFilms)
             // Сохраняем фильмы в стейт
@@ -226,8 +218,6 @@ function App() {
             const serverFilms = res.data
             // Нужно отфильтровать свои фильмы
             const userSavedFilms = filterUserSavedFilms(serverFilms, currentUser._id)
-            console.log('curusID ', currentUser._id)
-            console.log('after films, ', userSavedFilms)
             // Сохраняем фильмы в стейт
             setSavedMovies(userSavedFilms)
             // Сохраняем фильмы в стейт
