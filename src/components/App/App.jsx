@@ -20,6 +20,7 @@ import {
 } from '../../utils/api/MainApi'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import PageNotFound from '../PageNotFound/PageNotFound'
+import UnProtectedRoute from '../UnProtectedRoute/UnProtectedRoute'
 
 function App() {
   const history = useHistory()
@@ -266,12 +267,22 @@ function App() {
               isAuth={isAuth}
               isSuccessSubmit={isSuccessSubmit}
             />
-            <Route path="/signup">
-              <Register handleRegister={handleRegister} registerNetworkError={registerNetworkError} />
-            </Route>
-            <Route path="/signin">
-              <Login handleLogin={handleLogin} loginNetworkError={loginNetworkError} />
-            </Route>
+            <UnProtectedRoute
+              exact
+              path="/signup"
+              component={Register}
+              handleRegister={handleRegister}
+              registerNetworkError={registerNetworkError}
+              isAuth={isAuth}
+            />
+            <UnProtectedRoute
+              exact
+              path="/signin"
+              component={Login}
+              handleLogin={handleLogin}
+              loginNetworkError={loginNetworkError}
+              isAuth={isAuth}
+            />
             <Route exact path="/">
               <Main isAuth={isAuth} />
             </Route>
