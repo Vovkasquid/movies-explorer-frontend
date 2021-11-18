@@ -27,6 +27,7 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
   React.useEffect(() => {
     // Если пришли с роута /saved-movies, то надо сразу сделать несколько действий
     // То, что делается при поиске для этого маршрута надо сделать предварительно
+    // а так же, если был уже поиск, то выставить фильмы (даже если с роута /movies пришли)
     if (isSaved) {
       if (savedMovies.length > 0) {
         setMoviesStorage(savedMovies)
@@ -66,6 +67,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
             // Фильтруем фильмы
             const filteredFilms = filterItems(movies, values.search)
             const shortFilms = filteredFilms.filter((movie) => movie.duration <= 40)
+            // Записываем найденные фильмы в хранилище
+            localStorage.setItem('moviesLongFilms', JSON.stringify(filteredFilms))
+            localStorage.setItem('moviesShortFilms', JSON.stringify(shortFilms))
             // Записываем эти фильтры в стейт отфильтрованного
             setFilterFilmArray(filteredFilms)
             // Заранее записываем в стейт короткометражки
@@ -117,6 +121,9 @@ export default function SearchForm({ isSaved, cardCount, handleSaveFilm, handleD
         // Делаем поиск по savedMovies
         const filteredSavedFilms = filterItems(savedMovies, values.search)
         const shortSavedFilms = filteredSavedFilms.filter((movie) => movie.duration <= 40)
+        // Записываем фильмы в хранилище
+        localStorage.setItem('moviesSavedShortFilms', JSON.stringify(shortSavedFilms))
+        localStorage.setItem('moviesSavedLongFilms', JSON.stringify(filteredSavedFilms))
         // Записываем эти фильтры в стейт отфильтрованного
         setFilterFilmArray(filteredSavedFilms)
         // Заранее записываем в стейт короткометражки

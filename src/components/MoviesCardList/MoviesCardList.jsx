@@ -30,6 +30,7 @@ export default function MoviesCardList({
       setRenderCounter(renderCounter + cardCount)
     }
   }
+
   return (
     <section className="movies-card-list">
       {!isSaved ? (
