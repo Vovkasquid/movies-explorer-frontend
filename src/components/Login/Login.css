@@ -110,6 +110,7 @@
   align-self: flex-start;
   color: #EE3465;
   visibility: hidden;
+  opacity: visibility .3s ease;
 }
 
 .login__form-input-error_active {
@@ -150,6 +151,11 @@
 .login__form-submit:focus {
   border: none;
   outline: 1px solid hsla(147, 69%, 55%, 1);
+}
+
+.login__form-submit:disabled {
+  background-color: hsla(0, 0%, 97%, 1);
+  color: #000;
 }
 
 .login__form-helper-text {

@@ -17,6 +17,11 @@
   color: #FFFFFF;
   width: 96px;
   box-sizing: border-box;
+  transition: opacity .3s ease;
+}
+
+.navtab__link:hover {
+  opacity: .8;
 }
 
 @media (max-width: 500px) {

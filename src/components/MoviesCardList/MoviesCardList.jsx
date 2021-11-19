@@ -1,72 +1,75 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react'
 import './MoviesCardList.css'
 import MovieCard from '../MoviesCard/MoviesCard'
-import filmPicture from '../../images/film-example.png'
 
-export default function MoviesCardList({ isSaved }) {
+export default function MoviesCardList({
+  isSaved,
+  movies,
+  dataLength,
+  renderCounter,
+  setRenderCounter,
+  cardCount,
+  isBtnVisible,
+  setIsBtnVisible,
+  handleDeleteFilm,
+  handleSaveFilm,
+  savedMovies,
+}) {
+  const filmDuration = (movie) => `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`
+  // renderCounter - сколько мы отрежем от общего массива с фильмами
+  // если вкладка "сохранённые фильмы, то надо отрендерить все фильмы сразу"
+  const renderArray = isSaved ? movies : movies.slice(0, renderCounter)
+  const handleAddingBtn = () => {
+    // проверяем может ли мы ещё добавить полное количество карточек
+    if (dataLength - renderCounter <= cardCount) {
+      setRenderCounter(renderCounter + (dataLength - renderCounter))
+      setIsBtnVisible(false)
+    } else {
+      setIsBtnVisible(true)
+      setRenderCounter(renderCounter + cardCount)
+    }
+  }
+
   return (
     <section className="movies-card-list">
       {!isSaved ? (
         <ul className="movies-card-list__list">
-          <li>
-            <MovieCard filmName="33 слова о дизайне" filmDuration="1ч 42м" filmPicture={filmPicture} isLiked />
-          </li>
-          <li>
-            <MovieCard
-              filmName="Киноальманах «100 лет дизайна»"
-              filmDuration="1ч 42м"
-              filmPicture={filmPicture}
-              isLiked
-            />
-          </li>
-          <li>
-            <MovieCard filmName="В погоне за Бенкси" filmDuration="1ч 42м" filmPicture={filmPicture} isLiked={false} />
-          </li>
-          <li>
-            <MovieCard
-              filmName="Баския: Взрыв реальности"
-              filmDuration="1ч 42м"
-              filmPicture={filmPicture}
-              isLiked={false}
-            />
-          </li>
-          <li>
-            <MovieCard filmName="Бег это свобода" filmDuration="1ч 42м" filmPicture={filmPicture} isLiked />
-          </li>
-          <li>
-            <MovieCard filmName="Книготорговцы" filmDuration="1ч 42м" filmPicture={filmPicture} isLiked />
-          </li>
-          <li>
-            <MovieCard
-              filmName="Когда я думаю о Германии ночью"
-              filmDuration="1ч 42м"
-              filmPicture={filmPicture}
-              isLiked={false}
-            />
-          </li>
+          {renderArray &&
+            renderArray.map((movie) => (
+              <li key={movie.id}>
+                <MovieCard
+                  movie={movie}
+                  filmDuration={filmDuration(movie)}
+                  isSaved={isSaved}
+                  handleDeleteFilm={handleDeleteFilm}
+                  handleSaveFilm={handleSaveFilm}
+                  savedMovies={savedMovies}
+                />
+              </li>
+            ))}
         </ul>
       ) : (
         <ul className="movies-card-list__list">
-          <li>
-            <MovieCard filmName="33 слова о дизайне" filmDuration="1ч 42м" filmPicture={filmPicture} isSaved />
-          </li>
-          <li>
-            <MovieCard
-              filmName="Киноальманах «100 лет дизайна»"
-              filmDuration="1ч 42м"
-              filmPicture={filmPicture}
-              isSaved
-            />
-          </li>
-          <li>
-            <MovieCard filmName="В погоне за Бенкси" filmDuration="1ч 42м" filmPicture={filmPicture} isSaved />
-          </li>
+          {renderArray &&
+            renderArray.map((movie) => (
+              <li key={movie._id}>
+                <MovieCard
+                  movie={movie}
+                  handleDeleteFilm={handleDeleteFilm}
+                  isSaved={isSaved}
+                  filmDuration={filmDuration(movie)}
+                />
+              </li>
+            ))}
         </ul>
       )}
 
-      <button type="button" className="movies-card-list__next-films-button">
-        Ещё
-      </button>
+      {!isSaved && isBtnVisible && (
+        <button onClick={handleAddingBtn} type="button" className="movies-card-list__next-films-button">
+          Ещё
+        </button>
+      )}
     </section>
   )
 }

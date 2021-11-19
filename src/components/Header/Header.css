@@ -8,8 +8,16 @@
 }
 
 .header__logo {
+  background-image: url(../../images/logo.svg);
   width: 38px;
   height: 38px;
+  transition: opacity .3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+.header__logo:hover {
+  opacity: .8;
 }
 
 .header__navigation {
@@ -44,7 +52,7 @@
   height: 22px;
   border: none;
   z-index: 2;
-  transition: opacity .3 ease;
+  transition: opacity .3s ease;
   padding: 0;
 }
 
@@ -92,7 +100,7 @@
   font-size: 13px;
   line-height: 18px;
   text-align: right;
-  transition: opacity .3 ease;
+  transition: opacity .3s ease;
 }
 .header__navigation-link_type_sidebar {
   text-align: center;
@@ -126,7 +134,7 @@
   font-weight: 500;
   padding: 8px 12px;
   box-sizing: border-box;
-  transition: opacity .3 ease;
+  transition: opacity .3s ease;
 }
 
 .header__profile-link_type_sidebar {
@@ -159,7 +167,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  transition: opacity .3 ease;
+  transition: opacity .3s ease;
 }
 
 .header__auth-link:hover {
@@ -183,7 +191,7 @@
 
 .header__menu-button {
   display: none;
-  transition: opacity .3 ease;
+  transition: opacity .3s ease;
   background-image: url('../../images/burger-button.svg');
   background-repeat: no-repeat;
   background-image: cover;
